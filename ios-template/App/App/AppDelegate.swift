@@ -9,6 +9,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
   func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
     // Override point for customization after application launch.
+    setInitialViewController()
     return true
   }
 
@@ -57,6 +58,15 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
       NotificationCenter.default.post(CAPBridge.statusBarTappedNotification)
     }
   }
+    
+    func setInitialViewController() {
+        let window = UIWindow(frame: UIScreen.main.bounds)
+        self.window = window
+        let initialViewController = BionicViewController()
+        
+        self.window?.rootViewController = initialViewController
+        self.window?.makeKeyAndVisible()
+    }
 
   #if USE_PUSH
 

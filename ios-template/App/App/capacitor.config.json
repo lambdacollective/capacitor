@@ -1,1 +1,8 @@
-{}
+{
+  "appId": "com.jun.firstcaptest",
+  "appName": "first-cap-test",
+  "bundledWebRuntime": false,
+  "npmClient": "npm",
+  "webDir": "public",
+  "cordova": {}
+}
