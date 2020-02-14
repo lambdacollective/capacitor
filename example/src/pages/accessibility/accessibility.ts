@@ -1,7 +1,7 @@
-import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import { Component } from "@angular/core";
+import { IonicPage, NavController, NavParams } from "ionic-angular";
 
-import { Plugins } from '@capacitor/core';
+import { Plugins } from "@lambda-capacitor/core";
 
 /**
  * Generated class for the AccessibilityPage page.
@@ -12,24 +12,26 @@ import { Plugins } from '@capacitor/core';
 
 @IonicPage()
 @Component({
-  selector: 'page-accessibility',
-  templateUrl: 'accessibility.html',
+  selector: "page-accessibility",
+  templateUrl: "accessibility.html"
 })
 export class AccessibilityPage {
-
   constructor(public navCtrl: NavController, public navParams: NavParams) {
-    Plugins.Accessibility.addListener('accessibilityScreenReaderStateChange', ((state) => {
-      console.log('SCREEN READER STATE CHANGE', state.value);
-    }));
+    Plugins.Accessibility.addListener(
+      "accessibilityScreenReaderStateChange",
+      state => {
+        console.log("SCREEN READER STATE CHANGE", state.value);
+      }
+    );
   }
 
   ionViewDidLoad() {
-    console.log('ionViewDidLoad AccessibilityPage');
+    console.log("ionViewDidLoad AccessibilityPage");
   }
 
   async isVoiceOverEnabled() {
     var vo = await Plugins.Accessibility.isScreenReaderEnabled();
-    alert('Voice over? ' + vo.value);
+    alert("Voice over? " + vo.value);
   }
 
   async speak() {

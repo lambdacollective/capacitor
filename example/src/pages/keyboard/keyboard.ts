@@ -1,7 +1,7 @@
-import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import { Component } from "@angular/core";
+import { IonicPage, NavController, NavParams } from "ionic-angular";
 
-import { Plugins } from '@capacitor/core';
+import { Plugins } from "@lambda-capacitor/core";
 
 /**
  * Generated class for the KeyboardPage page.
@@ -12,17 +12,16 @@ import { Plugins } from '@capacitor/core';
 
 @IonicPage()
 @Component({
-  selector: 'page-keyboard',
-  templateUrl: 'keyboard.html',
+  selector: "page-keyboard",
+  templateUrl: "keyboard.html"
 })
 export class KeyboardPage {
   isBarShowing = true;
 
-  constructor(public navCtrl: NavController, public navParams: NavParams) {
-  }
+  constructor(public navCtrl: NavController, public navParams: NavParams) {}
 
   ionViewDidLoad() {
-    console.log('ionViewDidLoad KeyboardPage');
+    console.log("ionViewDidLoad KeyboardPage");
   }
 
   show() {
@@ -32,11 +31,10 @@ export class KeyboardPage {
     Plugins.Keyboard.hide();
   }
 
-
   toggleAccessoryBar() {
-    if(this.isBarShowing) {
+    if (this.isBarShowing) {
       Plugins.Keyboard.setAccessoryBarVisible({
-       isVisible: false
+        isVisible: false
       });
     } else {
       Plugins.Keyboard.setAccessoryBarVisible({

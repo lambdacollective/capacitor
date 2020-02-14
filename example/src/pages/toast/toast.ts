@@ -1,6 +1,6 @@
-import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams } from 'ionic-angular';
-import { Plugins } from '@capacitor/core';
+import { Component } from "@angular/core";
+import { IonicPage, NavController, NavParams } from "ionic-angular";
+import { Plugins } from "@lambda-capacitor/core";
 
 const { Toast } = Plugins;
 
@@ -13,22 +13,20 @@ const { Toast } = Plugins;
 
 @IonicPage()
 @Component({
-  selector: 'page-toast',
-  templateUrl: 'toast.html',
+  selector: "page-toast",
+  templateUrl: "toast.html"
 })
 export class ToastPage {
-
-  constructor(public navCtrl: NavController, public navParams: NavParams) {
-  }
+  constructor(public navCtrl: NavController, public navParams: NavParams) {}
 
   ionViewDidLoad() {
-    console.log('ionViewDidLoad ToastPage');
+    console.log("ionViewDidLoad ToastPage");
   }
 
-  async show(position: 'top' | 'center' | 'bottom') {
+  async show(position: "top" | "center" | "bottom") {
     await Toast.show({
-      text: 'Hello!',
-      position,
+      text: "Hello!",
+      position
     });
   }
 }

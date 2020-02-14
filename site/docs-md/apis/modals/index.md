@@ -19,7 +19,7 @@ well as Action Sheets.
 ## Example
 
 ```typescript
-import { Plugins } from '@capacitor/core';
+import { Plugins } from '@lambda-capacitor/core';
 
 const { Modals } = Plugins;
 

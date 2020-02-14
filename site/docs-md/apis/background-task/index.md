@@ -35,12 +35,11 @@ NOTE: On iOS `setTimeout` and `setInterval` won't work once your app is in backg
 ## Example
 
 ```typescript
-import { Plugins } from '@capacitor/core';
+import { Plugins } from "@lambda-capacitor/core";
 
 const { App, BackgroundTask } = Plugins;
 
-App.addListener('appStateChange', (state) => {
-
+App.addListener("appStateChange", state => {
   if (!state.isActive) {
     // The app has become inactive. We should check if we have some work left to do, and, if so,
     // execute a background task that will allow us to finish that work before the OS
@@ -53,7 +52,7 @@ App.addListener('appStateChange', (state) => {
       // Example of long task
       var start = new Date().getTime();
       for (var i = 0; i < 1e18; i++) {
-        if ((new Date().getTime() - start) > 20000){
+        if (new Date().getTime() - start > 20000) {
           break;
         }
       }
@@ -65,7 +64,7 @@ App.addListener('appStateChange', (state) => {
       });
     });
   }
-})
+});
 ```
 
 ## API

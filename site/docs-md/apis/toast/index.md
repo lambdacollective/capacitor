@@ -22,7 +22,7 @@ The Toast API provides a notification pop up for displaying important informatio
 ## Example
 
 ```typescript
-import { Plugins } from '@capacitor/core';
+import { Plugins } from '@lambda-capacitor/core';
 const { Toast } = Plugins;
 
 async show() {

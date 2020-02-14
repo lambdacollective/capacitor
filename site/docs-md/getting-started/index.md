@@ -33,12 +33,12 @@ To add Capacitor to your web app, run the following commands:
 
 ```bash
 cd my-app
-npm install --save @capacitor/core @capacitor/cli
+npm install --save @lambda-capacitor/core @lambda-capacitor/cli
 ```
 
 Then, initialize Capacitor with your app information.
 
-*Note: `npx` is a new utility available in npm 5 or above that executes local binaries/scripts to avoid global installs.*
+_Note: `npx` is a new utility available in npm 5 or above that executes local binaries/scripts to avoid global installs._
 
 ```bash
 npx cap init
@@ -63,7 +63,7 @@ Capacitor comes with a stock project structure if you'd rather start fresh and p
 To create it, run:
 
 ```bash
-npx @capacitor/cli create
+npx @lambda-capacitor/cli create
 ```
 
 This command will prompt you to enter the name of your app and the app id (the package name for Android and the bundle identifier for iOS).

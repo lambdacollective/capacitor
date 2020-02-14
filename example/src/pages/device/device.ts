@@ -1,8 +1,6 @@
-import { Component, NgZone } from '@angular/core';
-import { IonicPage, NavController, NavParams } from 'ionic-angular';
-import {
-  Plugins
-} from '@capacitor/core';
+import { Component, NgZone } from "@angular/core";
+import { IonicPage, NavController, NavParams } from "ionic-angular";
+import { Plugins } from "@lambda-capacitor/core";
 
 /**
  * Generated class for the DevicePage page.
@@ -13,22 +11,25 @@ import {
 
 @IonicPage()
 @Component({
-  selector: 'page-device',
-  templateUrl: 'device.html',
+  selector: "page-device",
+  templateUrl: "device.html"
 })
 export class DevicePage {
   deviceInfoJson: string;
 
-  constructor(public navCtrl: NavController, public navParams: NavParams, private zone: NgZone) {
-  }
+  constructor(
+    public navCtrl: NavController,
+    public navParams: NavParams,
+    private zone: NgZone
+  ) {}
 
   ionViewDidLoad() {
-    console.log('ionViewDidLoad DevicePage');
+    console.log("ionViewDidLoad DevicePage");
   }
 
   async getDeviceInfo() {
-    const info = await Plugins.Device.getInfo()
-    console.log('Got device info', info);
+    const info = await Plugins.Device.getInfo();
+    console.log("Got device info", info);
     this.zone.run(() => {
       this.deviceInfoJson = JSON.stringify(info, null, 2);
     });
@@ -36,6 +37,6 @@ export class DevicePage {
 
   async getDeviceLanguageCode() {
     const code = await Plugins.Device.getLanguageCode();
-    alert('Language: ' + code.value);
+    alert("Language: " + code.value);
   }
 }

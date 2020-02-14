@@ -20,7 +20,7 @@ The easiest way to build custom native code that needs to be accessible in the W
 a local Capacitor plugin for it. In this case, building the plugin is as simple as building a class
 that inherits from `com.getcapacitor.Plugin` and uses the `@NativePlugin()` and `@PluginMethod()` annotations.
 
-Here is a simple example: 
+Here is a simple example:
 
 `com/example/myapp/CustomNativePlugin.java` in `android/app/src/main/java`:
 
@@ -41,7 +41,7 @@ public class CustomNativePlugin extends Plugin {
     // More code here...
     call.success();
   }
-  
+
   @PluginMethod()
   public void customFunction(PluginCall call) {
     // More code here...
@@ -75,7 +75,7 @@ Then you can use your functions in your webView code:
 
 ```javascript
 // Other codes...
-import { Plugins } from "@capacitor/core";
+import { Plugins } from "@lambda-capacitor/core";
 const { CustomNativePlugin } = Plugins;
 // Other codes...
 CustomNativePlugin.customCall({ message: "CUSTOM MESSAGE" });

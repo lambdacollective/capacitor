@@ -27,49 +27,51 @@ Read more about [LSApplicationQueriesSchemes](https://developer.apple.com/librar
 ## Example
 
 ```typescript
-import { Plugins, AppState } from '@capacitor/core';
+import { Plugins, AppState } from "@lambda-capacitor/core";
 
 const { App } = Plugins;
 
-App.addListener('appStateChange', (state: AppState) => {
+App.addListener("appStateChange", (state: AppState) => {
   // state.isActive contains the active state
-  console.log('App state changed. Is active?', state.isActive);
+  console.log("App state changed. Is active?", state.isActive);
 });
 
 // Listen for serious plugin errors
-App.addListener('pluginError', (info: any) => {
-  console.error('There was a serious error with a plugin', err, info);
+App.addListener("pluginError", (info: any) => {
+  console.error("There was a serious error with a plugin", err, info);
 });
 
-var ret = await App.canOpenUrl({ url: 'com.getcapacitor.myapp' });
-console.log('Can open url: ', ret.value);
+var ret = await App.canOpenUrl({ url: "com.getcapacitor.myapp" });
+console.log("Can open url: ", ret.value);
 
-ret = await App.openUrl({ url: 'com.getcapacitor.myapp://page?id=ionicframework' });
-console.log('Open url response: ', ret);
+ret = await App.openUrl({
+  url: "com.getcapacitor.myapp://page?id=ionicframework"
+});
+console.log("Open url response: ", ret);
 
 ret = await App.getLaunchUrl();
-if(ret && ret.url) {
-  console.log('App opened with URL: ' + ret.url);
+if (ret && ret.url) {
+  console.log("App opened with URL: " + ret.url);
 }
-console.log('Launch url: ', ret);
+console.log("Launch url: ", ret);
 
-App.addListener('appUrlOpen', (data: any) => {
-  console.log('App opened with URL: ' +  data.url);
+App.addListener("appUrlOpen", (data: any) => {
+  console.log("App opened with URL: " + data.url);
 });
 
-App.addListener('appRestoredResult', (data: any) => {
-  console.log('Restored state:', data);
+App.addListener("appRestoredResult", (data: any) => {
+  console.log("Restored state:", data);
 });
 ```
 
 ## Android: Use appRestoredResult
 
 On Android, due to memory constraints on low-end devices, it's possible that, if your app launches a new activity, your app will be terminated by the operating system
-in order to reduce memory consumption. 
+in order to reduce memory consumption.
 
 For example, that means the `Camera` API, which launches a new Activity to take a photo, may not be able to return data back to your app.
 
-To avoid this, Capacitor stores all restored activity results on launch. You should add a listener for `appRestoredResult` in order to handle any 
+To avoid this, Capacitor stores all restored activity results on launch. You should add a listener for `appRestoredResult` in order to handle any
 plugin call results that were delivered when your app was not running.
 
 Once you have that result (if any), you can update the UI to restore a logical experience for the user, such as navigating or selecting the proper tab.

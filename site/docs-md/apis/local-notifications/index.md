@@ -20,7 +20,7 @@ Local Notifications are great for reminding the user about a change in the app s
 ## Example
 
 ```typescript
-import { Plugins } from '@capacitor/core';
+import { Plugins } from "@lambda-capacitor/core";
 const { LocalNotifications } = Plugins;
 
 LocalNotifications.schedule({

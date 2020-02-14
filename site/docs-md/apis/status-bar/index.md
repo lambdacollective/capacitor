@@ -23,26 +23,23 @@ The status bar visibility defaults to visible and the style defaults to `StatusB
 
 ## Events
 
-* statusTap
+- statusTap
 
 ## Example
 
 ```typescript
 // Events (iOS only)
-window.addEventListener('statusTap', function () {
+window.addEventListener("statusTap", function() {
   console.log("statusbar tapped");
 });
 
 //API
-import {
-  Plugins,
-  StatusBarStyle,
-} from '@capacitor/core';
+import { Plugins, StatusBarStyle } from "@lambda-capacitor/core";
 
 const { StatusBar } = Plugins;
 
 export class StatusBarExample {
-  isStatusBarLight = true
+  isStatusBarLight = true;
 
   changeStatusBar() {
     StatusBar.setStyle({

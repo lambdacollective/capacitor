@@ -31,7 +31,7 @@ This method can also be used to store non-string values, such as numbers and boo
 ## Example
 
 ```typescript
-import { Plugins } from '@capacitor/core';
+import { Plugins } from '@lambda-capacitor/core';
 
 const { Storage } = Plugins;
 

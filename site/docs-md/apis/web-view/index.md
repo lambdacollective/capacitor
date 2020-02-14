@@ -18,10 +18,10 @@ The WebView API provides some configuration options for the embedded WebView on 
 ## Example
 
 ```typescript
-import { Plugins } from '@capacitor/core';
+import { Plugins } from "@lambda-capacitor/core";
 const { WebView } = Plugins;
 
-WebView.setServerBasePath('../../path/to/new/basepath');
+WebView.setServerBasePath("../../path/to/new/basepath");
 ```
 
 ## API

@@ -1,6 +1,6 @@
-import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams } from 'ionic-angular';
-import { Plugins } from '@capacitor/core';
+import { Component } from "@angular/core";
+import { IonicPage, NavController, NavParams } from "ionic-angular";
+import { Plugins } from "@lambda-capacitor/core";
 const { SplashScreen } = Plugins;
 
 /**
@@ -12,16 +12,14 @@ const { SplashScreen } = Plugins;
 
 @IonicPage()
 @Component({
-  selector: 'page-splash-screen',
-  templateUrl: 'splash-screen.html',
+  selector: "page-splash-screen",
+  templateUrl: "splash-screen.html"
 })
 export class SplashScreenPage {
-
-  constructor(public navCtrl: NavController, public navParams: NavParams) {
-  }
+  constructor(public navCtrl: NavController, public navParams: NavParams) {}
 
   ionViewDidLoad() {
-    console.log('ionViewDidLoad SplashScreenPage');
+    console.log("ionViewDidLoad SplashScreenPage");
   }
 
   showSplashAutoHide() {
@@ -45,5 +43,4 @@ export class SplashScreenPage {
       SplashScreen.hide();
     }, 6000);
   }
-
 }

@@ -1,5 +1,5 @@
 ---
-title: Development Workflow 
+title: Development Workflow
 description: Capacitor Workflow
 url: /docs/basics/workflow
 contributors:
@@ -23,7 +23,7 @@ As a final step you will build your application using a command similar to
 npm run build
 ```
 
-If you are using a framework, follow your framework's build process. 
+If you are using a framework, follow your framework's build process.
 
 If for example you are using [Ionic](https://ionicframework.com/), this would be
 
@@ -65,14 +65,14 @@ To check if there are any new updates to Capacitor itself, run `npx cap doctor` 
 To update Capacitor Core and CLI:
 
 ```bash
-npm update @capacitor/cli
-npm update @capacitor/core
+npm update @lambda-capacitor/cli
+npm update @lambda-capacitor/core
 ```
 
 To update any or all of the platforms you are using:
 
 ```bash
-npm update @capacitor/ios
+npm update @lambda-capacitor/ios
 npm update @capacitor/android
 npm update @capacitor/electron
 ```

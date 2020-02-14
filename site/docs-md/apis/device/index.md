@@ -19,7 +19,7 @@ such as unique ids.
 ## Example
 
 ```typescript
-import { Plugins } from '@capacitor/core';
+import { Plugins } from '@lambda-capacitor/core';
 
 const { Device } = Plugins;
 

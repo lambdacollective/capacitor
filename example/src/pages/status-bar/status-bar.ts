@@ -1,9 +1,6 @@
-import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams } from 'ionic-angular';
-import {
-  Plugins,
-  StatusBarStyle,
-} from '@capacitor/core';
+import { Component } from "@angular/core";
+import { IonicPage, NavController, NavParams } from "ionic-angular";
+import { Plugins, StatusBarStyle } from "@lambda-capacitor/core";
 
 const { StatusBar } = Plugins;
 
@@ -16,17 +13,16 @@ const { StatusBar } = Plugins;
 
 @IonicPage()
 @Component({
-  selector: 'page-status-bar',
-  templateUrl: 'status-bar.html',
+  selector: "page-status-bar",
+  templateUrl: "status-bar.html"
 })
 export class StatusBarPage {
-  isStatusBarLight = true
+  isStatusBarLight = true;
 
-  constructor(public navCtrl: NavController, public navParams: NavParams) {
-  }
+  constructor(public navCtrl: NavController, public navParams: NavParams) {}
 
   ionViewDidLoad() {
-    console.log('ionViewDidLoad StatusBarPage');
+    console.log("ionViewDidLoad StatusBarPage");
   }
 
   changeStatusBar() {
@@ -46,14 +42,16 @@ export class StatusBarPage {
 
   setBackgroundColor() {
     const bits = [0, 0, 0];
-    const randomColor = bits.map(b => {
-      const v = Math.floor(Math.random() * 0xff).toString(16);
-      if (v.length < 2) {
-        return '0' + v;
-      }
-      return v;
-    }).join('');
+    const randomColor = bits
+      .map(b => {
+        const v = Math.floor(Math.random() * 0xff).toString(16);
+        if (v.length < 2) {
+          return "0" + v;
+        }
+        return v;
+      })
+      .join("");
     console.log(`Random color: #${randomColor}`);
-    StatusBar.setBackgroundColor({ color: `#${randomColor}` })
+    StatusBar.setBackgroundColor({ color: `#${randomColor}` });
   }
 }

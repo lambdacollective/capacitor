@@ -26,13 +26,13 @@ for a plugin is possible, and is just like providing a JavaScript npm package.
 Capacitor comes with a Plugin generator to start new plugins quickly. To use it, run
 
 ```bash
-npx @capacitor/cli plugin:generate
+npx @lambda-capacitor/cli plugin:generate
 ```
 
 This starts a wizard prompting you for information about your new plugin. For example:
 
 ```bash
-npx @capacitor/cli plugin:generate
+npx @lambda-capacitor/cli plugin:generate
 ✏️  Creating new Capacitor plugin
 ? Plugin NPM name (kebab-case): my-plugin
 ? Plugin id (domain-style syntax. ex: com.example.plugin) com.ionicframework.myplugin
@@ -44,14 +44,14 @@ npx @capacitor/cli plugin:generate
 ? package.json will be created, do you want to continue? (Y/n)
 ```
 
- - `Plugin NPM name`: a kebab-case name of a package that will be available on npm (not a strict requirement if your package will be on a private npm repo).
- - `Plugin ID`: a domain-style identifier. It is primarily used for the package name in Java.
- - `Plugin Class Name`: the initial name of the class used in Java and Swift. See the additional note about class names in the [iOS Plugin](ios/) section of this guide.
- - `description`: a brief introduction about the plugin.
- - `git repository`: the URL to a git repository where the source code of the plugin will be hosted.
- - `author` (optional): the name of the plugin creator in `package.json`.
- - `license` (optional): the license under which the plugin is bound. MIT license is the default.
- - `package.json will be created`: enter "Y" and/or hit Enter/Return to finish plugin setup.
+- `Plugin NPM name`: a kebab-case name of a package that will be available on npm (not a strict requirement if your package will be on a private npm repo).
+- `Plugin ID`: a domain-style identifier. It is primarily used for the package name in Java.
+- `Plugin Class Name`: the initial name of the class used in Java and Swift. See the additional note about class names in the [iOS Plugin](ios/) section of this guide.
+- `description`: a brief introduction about the plugin.
+- `git repository`: the URL to a git repository where the source code of the plugin will be hosted.
+- `author` (optional): the name of the plugin creator in `package.json`.
+- `license` (optional): the license under which the plugin is bound. MIT license is the default.
+- `package.json will be created`: enter "Y" and/or hit Enter/Return to finish plugin setup.
 
 ## TypeScript Interface
 
@@ -62,14 +62,14 @@ Starting with the TypeScript interface can be a good way to build out the API fo
 here's the default interface for our Plugin:
 
 ```typescript
-declare module "@capacitor/core" {
+declare module "@lambda-capacitor/core" {
   interface PluginRegistry {
     Echo: EchoPlugin;
   }
 }
 
 export interface EchoPlugin {
-  echo(options: { value: string }): Promise<{value: string}>;
+  echo(options: { value: string }): Promise<{ value: string }>;
 }
 ```
 

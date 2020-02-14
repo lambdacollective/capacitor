@@ -1,9 +1,7 @@
-import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import { Component } from "@angular/core";
+import { IonicPage, NavController, NavParams } from "ionic-angular";
 
-import {
-  Plugins
-} from '@capacitor/core';
+import { Plugins } from "@lambda-capacitor/core";
 
 const { Network } = Plugins;
 
@@ -16,8 +14,8 @@ const { Network } = Plugins;
 
 @IonicPage()
 @Component({
-  selector: 'page-network',
-  templateUrl: 'network.html',
+  selector: "page-network",
+  templateUrl: "network.html"
 })
 export class NetworkPage {
   handler = null;
@@ -27,7 +25,7 @@ export class NetworkPage {
   }
 
   startListen() {
-    this.handler = Network.addListener('networkStatusChange', (status) => {
+    this.handler = Network.addListener("networkStatusChange", status => {
       console.log("Network status changed", status);
     });
   }
@@ -38,11 +36,10 @@ export class NetworkPage {
 
   async getStatus() {
     let status = await Network.getStatus();
-    console.log('NETWORK STATUS', status);
+    console.log("NETWORK STATUS", status);
   }
 
   ionViewDidLoad() {
-    console.log('ionViewDidLoad NetworkPage');
+    console.log("ionViewDidLoad NetworkPage");
   }
-
 }

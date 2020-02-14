@@ -4,11 +4,11 @@ This example app can be used to develop and test Capacitor.
 
 This project contains a modified Ionic app as the web app (source code in `src`, build in `www`), that demos the use of the Capacitor APIs (from `@capacitor/code`). The project is also already set up with two native projects, `ios` and `android`, that can be used to build and debug native apps for those platforms.
 
-The installation instructions and native projects are set up in such a way, that `@capacitor/core` and the Capacitor Android and iOS libraries that are used in the native projects are loaded from the local (parent) directory, instead of as an external dependency through the normal distribution mechanism (npm, Cocoapods and Gradle/Bintray):
+The installation instructions and native projects are set up in such a way, that `@lambda-capacitor/core` and the Capacitor Android and iOS libraries that are used in the native projects are loaded from the local (parent) directory, instead of as an external dependency through the normal distribution mechanism (npm, Cocoapods and Gradle/Bintray):
 
-* `@capacitor/core` = `../core`
-* Capacitor iOS = `../ios`
-* Capacitor Android = `../android`
+- `@lambda-capacitor/core` = `../core`
+- Capacitor iOS = `../ios`
+- Capacitor Android = `../android`
 
 This way you can make direct changes to all those and use them in the native apps, allowing quick iteration of development.
 
@@ -38,13 +38,13 @@ npm link
 
 ## 2. Build Example App
 
-Switch back over to this example project in `/example` where you first install dependencies and link in the `@capacitor/core` you just built in the step before, then build the app and copy the build files to the correct `public` directories for both the iOS and Android example apps:
+Switch back over to this example project in `/example` where you first install dependencies and link in the `@lambda-capacitor/core` you just built in the step before, then build the app and copy the build files to the correct `public` directories for both the iOS and Android example apps:
 
 ```
 cd ../example
 
 npm install
-npm link @capacitor/core
+npm link @lambda-capacitor/core
 npm link @capacitor/electron
 
 npm run build
@@ -81,5 +81,3 @@ npm link @capacitor/electron
 # Run the app
 npm start
 ```
-
-

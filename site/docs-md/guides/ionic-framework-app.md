@@ -11,12 +11,14 @@ contributors:
 **Web Framework**: Ionic 4 + Angular  
 **Platforms**: Web, iOS, Android
 
-Capacitor makes it easy to build web apps that run natively on iOS, Android, desktop, and the web. In this guide, we'll add Camera functionality to an Ionic Angular app that works on the web, iOS, and Android. Ready to capture photos using just one JavaScript method call?  Let's get started.
+Capacitor makes it easy to build web apps that run natively on iOS, Android, desktop, and the web. In this guide, we'll add Camera functionality to an Ionic Angular app that works on the web, iOS, and Android. Ready to capture photos using just one JavaScript method call? Let's get started.
 
 ## Required Dependencies
+
 Building and deploying iOS and Android apps require additional dependencies, including an iOS and Android device. Please [follow the instructions here](../getting-started/dependencies) before continuing.
 
 ## Prepare an Ionic App
+
 If you have an existing Ionic app, skip this section. If not, let's create an Ionic app first. In a Terminal, install Ionic (this also updates to the latest version of Ionic):
 
 ```bash
@@ -39,6 +41,7 @@ npx cap init
 **App Package ID:** com.example.capapp
 
 ## Adding Capacitor: Existing Ionic Project
+
 Capacitor was designed to drop into any existing modern JavaScript web app - Ionic included! If you didn't add the `--capacitor` flag when creating the Ionic project above, or have an existing Ionic project, no problem. Run the following:
 
 ```bash
@@ -56,6 +59,7 @@ npx cap init
 **App Package ID:** com.example.capapp
 
 ## Build the App Once
+
 Before adding any native platforms to this project, the app must be built at least once. A web build creates the web assets directory that Capacitor needs (`www` folder in Ionic projects):
 
 ```bash
@@ -72,13 +76,14 @@ npx cap add android
 Upon running these commands, both `android` and `ios` folders at the root of the project are created. These are entirely separate native project artifacts that should be considered part of your Ionic app (i.e., check them into source control).
 
 ## Adding Camera Functionality
+
 Next up, we'll add the ability to take photos with the device's camera using the Capacitor [Camera API](../apis/camera).
 
 To begin, open the Tab2 HTML page under the `src/app/tab2` folder. Add an image tag that will display the current photo taken with the camera and add an Ionic fab button that will open the camera when clicked:
 
 ```html
 <ion-content>
-  <img [src]="photo" >
+  <img [src]="photo" />
 
   <ion-fab vertical="bottom" horizontal="center" slot="fixed">
     <ion-fab-button (click)="takePicture()">
@@ -91,7 +96,11 @@ To begin, open the Tab2 HTML page under the `src/app/tab2` folder. Add an image 
 Next, we need to add the logic that will power the camera functionality. Open `src/app/tab2/tab2.page.ts` and import the Capacitor Plugins and Camera classes:
 
 ```typescript
-import { Plugins, CameraResultType, CameraSource } from '@capacitor/core';
+import {
+  Plugins,
+  CameraResultType,
+  CameraSource
+} from "@lambda-capacitor/core";
 ```
 
 Next, implement the `takePicture()` method:
@@ -106,7 +115,9 @@ export class Tab2Page {
       source: CameraSource.Camera
     });
 
-    this.photo = this.sanitizer.bypassSecurityTrustResourceUrl(image && (image.dataUrl));
+    this.photo = this.sanitizer.bypassSecurityTrustResourceUrl(
+      image && image.dataUrl
+    );
   }
 }
 ```
@@ -116,31 +127,35 @@ Notice the magic here: there's no mention of iOS or Android! There's just one me
 Next, we need to tell Angular to trust the dynamic image data. To do this, inject `DomSanitizer` via the Constructor and use `sanitizer.bypassSecurityTrustResourceUrl()` to allow the image data to be displayed in our app:
 
 ```typescript
-import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
+import { DomSanitizer, SafeResourceUrl } from "@angular/platform-browser";
 
 export class Tab2Page {
   photo: SafeResourceUrl;
 
-  constructor(private sanitizer: DomSanitizer) {  }
+  constructor(private sanitizer: DomSanitizer) {}
 }
 ```
 
 Here's the complete Camera implementation:
 
 ```typescript
-import { Component } from '@angular/core';
-import { Plugins, CameraResultType, CameraSource } from '@capacitor/core';
-import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
+import { Component } from "@angular/core";
+import {
+  Plugins,
+  CameraResultType,
+  CameraSource
+} from "@lambda-capacitor/core";
+import { DomSanitizer, SafeResourceUrl } from "@angular/platform-browser";
 
 @Component({
-  selector: 'app-tab2',
-  templateUrl: 'tab2.page.html',
-  styleUrls: ['tab2.page.scss']
+  selector: "app-tab2",
+  templateUrl: "tab2.page.html",
+  styleUrls: ["tab2.page.scss"]
 })
 export class Tab2Page {
   photo: SafeResourceUrl;
 
-  constructor(private sanitizer: DomSanitizer) {  }
+  constructor(private sanitizer: DomSanitizer) {}
 
   async takePicture() {
     const image = await Plugins.Camera.getPhoto({
@@ -150,7 +165,9 @@ export class Tab2Page {
       source: CameraSource.Camera
     });
 
-    this.photo = this.sanitizer.bypassSecurityTrustResourceUrl(image && (image.dataUrl));
+    this.photo = this.sanitizer.bypassSecurityTrustResourceUrl(
+      image && image.dataUrl
+    );
   }
 }
 ```
@@ -174,7 +191,7 @@ npm install @ionic/pwa-elements
 Import `@ionic/pwa-elements` by editing `src/main.ts`:
 
 ```typescript
-import { defineCustomElements } from '@ionic/pwa-elements/loader';
+import { defineCustomElements } from "@ionic/pwa-elements/loader";
 
 // Call the element loader after the platform has been bootstrapped
 defineCustomElements(window);
@@ -188,6 +205,7 @@ With that appropriately configured now, re-run `ionic serve` and click the Camer
 Next up, let's run this app on iOS and Android.
 
 ## iOS
+
 Capacitor iOS apps are configured and managed through Xcode, with dependencies managed by CocoaPods. Before running this app on an iOS device, there's a couple of steps to complete.
 
 From the Terminal, run the Capacitor `copy` command, which copies all web assets (the Ionic Angular app in this case) into the native iOS project:
@@ -208,7 +226,7 @@ Next, run the Capacitor `open` command, which opens the native iOS project in Xc
 npx cap open ios
 ```
 
-Within Xcode, click on `App` in the Project Navigator on the left-hand side, then within the `Signing` section, select your Development Team. 
+Within Xcode, click on `App` in the Project Navigator on the left-hand side, then within the `Signing` section, select your Development Team.
 
 ![Xcode - Selecting Development Team](/assets/img/docs/guides/ionic-framework/xcode-signing.png)
 
@@ -229,6 +247,7 @@ Upon tapping the Camera button on Tab Two, the permission prompt will display. T
 ![iOS Camera permissions](/assets/img/docs/guides/ionic-framework/ios-permissions-photo.png)
 
 ## Android
+
 Capacitor Android apps are configured and managed through Android Studio. Before running this app on an Android device, there's a couple of steps to complete.
 
 From the Terminal, run the Capacitor `copy` command, which copies all web assets (the Ionic Angular app in this case) into the native Android project:
@@ -272,6 +291,6 @@ Once again, upon tapping the Camera button on Tab Two, the permission prompt sho
 
 We created a cross-platform Ionic Angular app that runs on the web, Android, and iOS. Using the Capacitor Camera API, we added the ability to use the device's camera with just a few lines of code.
 
-What's next? Try adding another API, such as [Toasts](../apis/toast) or [Push Notifications](../apis/push-notifications). Looking to create custom native functionality? Create a [Capacitor plugin](../plugins/). This is just the beginning of your Capacitor journey. 
+What's next? Try adding another API, such as [Toasts](../apis/toast) or [Push Notifications](../apis/push-notifications). Looking to create custom native functionality? Create a [Capacitor plugin](../plugins/). This is just the beginning of your Capacitor journey.
 
 Happy app building!

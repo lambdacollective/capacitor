@@ -1,6 +1,6 @@
-import { WebPlugin } from "@capacitor/core";
+import { WebPlugin } from "@lambda-capacitor/core";
 
-const { dialog , getCurrentWindow } = require('electron').remote;
+const { dialog, getCurrentWindow } = require("electron").remote;
 
 import {
   ModalsPlugin,
@@ -11,29 +11,27 @@ import {
   ConfirmResult,
   ActionSheetOptions,
   ActionSheetResult
-} from "@capacitor/core";
+} from "@lambda-capacitor/core";
 
 export class ModalsPluginElectron extends WebPlugin implements ModalsPlugin {
-
   constructor() {
     super({
-      name: 'Modals',
-      platforms: ['electron']
+      name: "Modals",
+      platforms: ["electron"]
     });
   }
 
   async alert(options: AlertOptions): Promise<void> {
-    const alert = (message: string, title: string = '') =>
-    {    
-        let buttons = [options.buttonTitle || 'OK']
-        dialog.showMessageBox(getCurrentWindow(), {message, title, buttons});       
-    }
-        alert(options.message, options.title);
-        return Promise.resolve();
+    const alert = (message: string, title: string = "") => {
+      let buttons = [options.buttonTitle || "OK"];
+      dialog.showMessageBox(getCurrentWindow(), { message, title, buttons });
+    };
+    alert(options.message, options.title);
+    return Promise.resolve();
   }
 
   async prompt(options: PromptOptions): Promise<PromptResult> {
-    const val = window.prompt(options.message, options.inputPlaceholder || '');
+    const val = window.prompt(options.message, options.inputPlaceholder || "");
     return Promise.resolve({
       value: val,
       cancelled: val === null
@@ -41,12 +39,18 @@ export class ModalsPluginElectron extends WebPlugin implements ModalsPlugin {
   }
 
   async confirm(options: ConfirmOptions): Promise<ConfirmResult> {
-    const confirm = (message: string, title: string='') =>
-    {
-      let buttons = [options.okButtonTitle || 'OK' , options.cancelButtonTitle || 'Cancel']
-      return !dialog.showMessageBox(getCurrentWindow(), {message, title, buttons});
-    }
-    const val = confirm(options.message,options.title);
+    const confirm = (message: string, title: string = "") => {
+      let buttons = [
+        options.okButtonTitle || "OK",
+        options.cancelButtonTitle || "Cancel"
+      ];
+      return !dialog.showMessageBox(getCurrentWindow(), {
+        message,
+        title,
+        buttons
+      });
+    };
+    const val = confirm(options.message, options.title);
     return Promise.resolve({
       value: val
     });
@@ -54,10 +58,12 @@ export class ModalsPluginElectron extends WebPlugin implements ModalsPlugin {
 
   async showActions(options: ActionSheetOptions): Promise<ActionSheetResult> {
     return new Promise<ActionSheetResult>(async (resolve, _reject) => {
-      var controller: any = document.querySelector('ion-action-sheet-controller');
+      var controller: any = document.querySelector(
+        "ion-action-sheet-controller"
+      );
 
       if (!controller) {
-        controller = document.createElement('ion-action-sheet-controller');
+        controller = document.createElement("ion-action-sheet-controller");
         document.body.appendChild(controller);
       }
 
@@ -66,8 +72,8 @@ export class ModalsPluginElectron extends WebPlugin implements ModalsPlugin {
       const items = options.options.map((o, i) => {
         return {
           text: o.title,
-          role: o.style && o.style.toLowerCase() || '',
-          icon: o.icon || '',
+          role: (o.style && o.style.toLowerCase()) || "",
+          icon: o.icon || "",
           handler: () => {
             resolve({
               index: i
@@ -84,7 +90,6 @@ export class ModalsPluginElectron extends WebPlugin implements ModalsPlugin {
       await actionSheetElement.present();
     });
   }
-
 }
 
 const Modals = new ModalsPluginElectron();

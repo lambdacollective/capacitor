@@ -1,9 +1,6 @@
-import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams } from 'ionic-angular';
-import {
-  Plugins,
-  ActionSheetOptionStyle
-} from '@capacitor/core';
+import { Component } from "@angular/core";
+import { IonicPage, NavController, NavParams } from "ionic-angular";
+import { Plugins, ActionSheetOptionStyle } from "@lambda-capacitor/core";
 
 /**
  * Generated class for the ModalsPage page.
@@ -14,73 +11,71 @@ import {
 
 @IonicPage()
 @Component({
-  selector: 'page-modals',
-  templateUrl: 'modals.html',
+  selector: "page-modals",
+  templateUrl: "modals.html"
 })
 export class ModalsPage {
-
-  constructor(public navCtrl: NavController, public navParams: NavParams) {
-  }
+  constructor(public navCtrl: NavController, public navParams: NavParams) {}
 
   ionViewDidLoad() {
-    console.log('ionViewDidLoad ModalsPage');
+    console.log("ionViewDidLoad ModalsPage");
   }
 
   async showAlert() {
     let alertRet = await Plugins.Modals.alert({
-      title: 'Stop',
-      message: 'this is an error',
-      buttonTitle: 'Okay!'
+      title: "Stop",
+      message: "this is an error",
+      buttonTitle: "Okay!"
     });
   }
 
   async showConfirm() {
     let confirmRet = await Plugins.Modals.confirm({
-      title: 'Confirm',
-      message: 'Are you sure you\'d like to press the red button?',
-      okButtonTitle: 'Ok?',
-      cancelButtonTitle: 'Cancel?'      
+      title: "Confirm",
+      message: "Are you sure you'd like to press the red button?",
+      okButtonTitle: "Ok?",
+      cancelButtonTitle: "Cancel?"
     });
-    console.log('Confirm ret', confirmRet);
+    console.log("Confirm ret", confirmRet);
   }
 
   async showPrompt() {
     let promptRet = await Plugins.Modals.prompt({
-      title: 'Hello',
-      message: 'What\'s your name?'
+      title: "Hello",
+      message: "What's your name?"
     });
-    console.log('Prompt ret', promptRet);
+    console.log("Prompt ret", promptRet);
   }
 
   async showActions() {
     let promptRet = await Plugins.Modals.showActions({
-      title: 'Photo Options',
-      message: 'Select an option to perform',
+      title: "Photo Options",
+      message: "Select an option to perform",
       options: [
         {
-          title: 'Upload'
+          title: "Upload"
         },
         {
-          title: 'Share'
+          title: "Share"
         },
         {
-          title: 'Remove',
+          title: "Remove",
           style: ActionSheetOptionStyle.Destructive
         }
       ]
-    })
-    console.log('You selected', promptRet);
+    });
+    console.log("You selected", promptRet);
   }
 
   nativeAlert() {
-    alert('This is a browser alert');
+    alert("This is a browser alert");
   }
   nativeConfirm() {
-    var yes = confirm('Do it?');
-    console.log('Confirm result', yes);
+    var yes = confirm("Do it?");
+    console.log("Confirm result", yes);
   }
   nativePrompt() {
-    var val = prompt('Enter name');
-    console.log('Val:', val);
+    var val = prompt("Enter name");
+    console.log("Val:", val);
   }
 }

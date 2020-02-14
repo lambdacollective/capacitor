@@ -15,7 +15,6 @@ contributors:
 
 <p class="intro">There are two ways to add custom code depending on whether or not you need to access that code from the WebView:</p>
 
-
 ## WebView Accessible Native Code
 
 The easiest way to build custom native code that needs to be accessible in the WebView is to build
@@ -55,11 +54,11 @@ CAP_PLUGIN(MyPlugin, "MyPlugin",
 This makes `MyPlugin`, and the `echo` method available to the Capacitor web runtime like this:
 
 ```javascript
-import { Plugins } from "@capacitor/core"
-const { MyPlugin } = Plugins
+import { Plugins } from "@lambda-capacitor/core";
+const { MyPlugin } = Plugins;
 
-const result = await MyPlugin.echo({ value: "Hello World!" })
-console.log(result.value)
+const result = await MyPlugin.echo({ value: "Hello World!" });
+console.log(result.value);
 ```
 
 ## Private Native Code

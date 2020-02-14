@@ -1,5 +1,5 @@
 {
-  "name": "@capacitor/ios",
+  "name": "@lambda-capacitor/ios",
   "version": "LERNA_VERSION",
   "description": "Capacitor: cross-platform mobile apps with the web",
   "homepage": "https://capacitor.ionicframework.com/",
@@ -16,7 +16,7 @@
     "access": "public"
   },
   "peerDependencies": {
-    "@capacitor/core": "^LERNA_VERSION"
+    "@lambda-capacitor/core": "^LERNA_VERSION"
   },
   "scripts": {
     "prepublishOnly": "bash ../scripts/setversion.sh"

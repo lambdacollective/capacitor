@@ -1,9 +1,6 @@
-import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams } from 'ionic-angular';
-import {
-  Plugins,
-  HapticsImpactStyle
-} from '@capacitor/core';
+import { Component } from "@angular/core";
+import { IonicPage, NavController, NavParams } from "ionic-angular";
+import { Plugins, HapticsImpactStyle } from "@lambda-capacitor/core";
 
 /**
  * Generated class for the HapticsPage page.
@@ -14,16 +11,14 @@ import {
 
 @IonicPage()
 @Component({
-  selector: 'page-haptics',
-  templateUrl: 'haptics.html',
+  selector: "page-haptics",
+  templateUrl: "haptics.html"
 })
 export class HapticsPage {
-
-  constructor(public navCtrl: NavController, public navParams: NavParams) {
-  }
+  constructor(public navCtrl: NavController, public navParams: NavParams) {}
 
   ionViewDidLoad() {
-    console.log('ionViewDidLoad HapticsPage');
+    console.log("ionViewDidLoad HapticsPage");
   }
 
   hapticsImpact(style = HapticsImpactStyle.Heavy) {
@@ -55,5 +50,4 @@ export class HapticsPage {
   hapticsSelectionEnd() {
     Plugins.Haptics.selectionEnd();
   }
-
 }

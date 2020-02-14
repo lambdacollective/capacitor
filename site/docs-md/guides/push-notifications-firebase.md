@@ -19,10 +19,11 @@ For the purposes of registering and monitoring for push notifications from Fireb
 
 Building and deploying iOS and Android applications using Capacitor requires a bit of setup. Please [follow the instructions to install the necessary Capacitor dependencies here](../getting-started/dependencies) before continuing.
 
-To test push notifications on iOS, Apple requires that you have [a paid Apple Developer account](https://developer.apple.com/) and a *physical* iOS device.
+To test push notifications on iOS, Apple requires that you have [a paid Apple Developer account](https://developer.apple.com/) and a _physical_ iOS device.
 
 ## Prepare an Ionic App
-If you have an existing Ionic 4 app, skip this section. If not, let's create an Ionic app first. 
+
+If you have an existing Ionic 4 app, skip this section. If not, let's create an Ionic app first.
 
 In your preferred terminal, install the latest version of the Ionic CLI:
 
@@ -59,6 +60,7 @@ npx cap init
 ```
 
 ## Building the App & Adding Platforms
+
 Before adding any native platforms to this project, the app must be built at least once. A web build creates the web assets directory that Capacitor needs (`www` folder in Ionic projects).
 
 ```bash
@@ -85,7 +87,8 @@ import {
   Plugins,
   PushNotification,
   PushNotificationToken,
-  PushNotificationActionPerformed } from '@capacitor/core';
+  PushNotificationActionPerformed
+} from "@lambda-capacitor/core";
 
 const { PushNotifications } = Plugins;
 ```
@@ -102,28 +105,28 @@ ngOnInit() {
     PushNotifications.register();
 
     // On success, we should be able to receive notifications
-    PushNotifications.addListener('registration', 
+    PushNotifications.addListener('registration',
       (token: PushNotificationToken) => {
         alert('Push registration success, token: ' + token.value);
       }
     );
 
     // Some issue with our setup and push will not work
-    PushNotifications.addListener('registrationError', 
+    PushNotifications.addListener('registrationError',
       (error: any) => {
         alert('Error on registration: ' + JSON.stringify(error));
       }
     );
 
     // Show us the notification payload if the app is open on our device
-    PushNotifications.addListener('pushNotificationReceived', 
+    PushNotifications.addListener('pushNotificationReceived',
       (notification: PushNotification) => {
         alert('Push received: ' + JSON.stringify(notification));
       }
     );
 
     // Method called when tapping on a notification
-    PushNotifications.addListener('pushNotificationActionPerformed', 
+    PushNotifications.addListener('pushNotificationActionPerformed',
       (notification: PushNotificationActionPerformed) => {
         alert('Push action performed: ' + JSON.stringify(notification));
       }
@@ -140,7 +143,7 @@ import {
   Plugins,
   PushNotification,
   PushNotificationToken,
-  PushNotificationActionPerformed } from '@capacitor/core';
+  PushNotificationActionPerformed } from '@lambda-capacitor/core';
 
 const { PushNotifications } = Plugins;
 
@@ -157,25 +160,25 @@ export class HomePage implements OnInit {
 
     PushNotifications.register();
 
-    PushNotifications.addListener('registration', 
+    PushNotifications.addListener('registration',
       (token: PushNotificationToken) => {
         alert('Push registration success, token: ' + token.value);
       }
     );
 
-    PushNotifications.addListener('registrationError', 
+    PushNotifications.addListener('registrationError',
       (error: any) => {
         alert('Error on registration: ' + JSON.stringify(error));
       }
     );
 
-    PushNotifications.addListener('pushNotificationReceived', 
+    PushNotifications.addListener('pushNotificationReceived',
       (notification: PushNotification) => {
         alert('Push received: ' + JSON.stringify(notification));
       }
     );
 
-    PushNotifications.addListener('pushNotificationActionPerformed', 
+    PushNotifications.addListener('pushNotificationActionPerformed',
       (notification: PushNotificationActionPerformed) => {
         alert('Push action performed: ' + JSON.stringify(notification));
       }
@@ -215,13 +218,13 @@ Download the `google-services.json` file to your local machine. Then move the fi
 
 ![Google Services JSON Location for Android](/assets/img/docs/guides/firebase-push-notifications/google-services-location-android.png)
 
-We don't need to *add* any dependencies to our project because Capacitor projects automatically include a version of `firebase-messaging` in it's `build.gradle` file.
+We don't need to _add_ any dependencies to our project because Capacitor projects automatically include a version of `firebase-messaging` in it's `build.gradle` file.
 
 ## iOS
 
 ### Prerequisites
 
-iOS push notifications are significantly more complicated to set up than Android. You must have a [paid Apple Developer account](https://developer.apple.com/) *and* take care of the following items prior to being able to test push notifications with your iOS application:
+iOS push notifications are significantly more complicated to set up than Android. You must have a [paid Apple Developer account](https://developer.apple.com/) _and_ take care of the following items prior to being able to test push notifications with your iOS application:
 
 1. [Setup the proper Development or Production certificates & provisioning profiles](https://help.apple.com/xcode/mac/current/#/dev60b6fbbc7) for your iOS application in the Apple Developer Portal
 2. [Create an APNS certificate or key](https://developer.apple.com/documentation/usernotifications/setting_up_a_remote_notification_server/establishing_a_certificate-based_connection_to_apns) for either Development or Production in the Apple Developer Portal
@@ -246,7 +249,7 @@ Then click the **Register app** button.
 
 ### Add the `GoogleService-Info.plist` file to your iOS app
 
-*Note: This is **not** the same file used for your Android app.*
+_Note: This is **not** the same file used for your Android app._
 
 Download the `GoogleService-Info.plist` provided to your local machine.
 
@@ -256,7 +259,7 @@ You'll then want to open Xcode...
 npx cap open ios
 ```
 
-... and move the `.plist` file into your Xcode project as instructed by Firebase, ensuring to add it to all targets. 
+... and move the `.plist` file into your Xcode project as instructed by Firebase, ensuring to add it to all targets.
 
 ![Google Service Info Plist Location for iOS](/assets/img/docs/guides/firebase-push-notifications/google-plist-location-ios.png)
 
@@ -291,9 +294,9 @@ install! 'cocoapods', :disable_input_output_paths => true
 
 def capacitor_pods
   # Automatic Capacitor Pod dependencies, do not delete
-  pod 'Capacitor', :path => '../../node_modules/@capacitor/ios'
-  pod 'CapacitorCordova', :path => '../../node_modules/@capacitor/ios'
-  
+  pod 'Capacitor', :path => '../../node_modules/@lambda-capacitor/ios'
+  pod 'CapacitorCordova', :path => '../../node_modules/@lambda-capacitor/ios'
+
   # Do not delete
 end
 
@@ -308,7 +311,7 @@ end
 
 Now we'll need to ensure that our iOS project is updated with the proper Firebase CocoaPod installed.
 
-*Note: This part can take a while as CocoaPods needs to download all the appropriate files/dependencies.*
+_Note: This part can take a while as CocoaPods needs to download all the appropriate files/dependencies._
 
 ```bash
 npx cap update ios
@@ -349,7 +352,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     return true
   }
 ```
+
 If you would like to recieve the firebase FCM token from iOS instead of the raw APNS token, you will need to also change your `AppDelegate.didRegisterForRemoteNotificationsWithDeviceToken` code to look like this:
+
 ```swift
     func application(_ application: UIApplication, didRegisterForRemoteNotificationsWithDeviceToken deviceToken: Data) {
         Messaging.messaging().apnsToken = deviceToken
@@ -362,7 +367,6 @@ If you would like to recieve the firebase FCM token from iOS instead of the raw 
         }
     }
 ```
-
 
 ### Upload the APNS Certificate or Key to Firebase
 
@@ -381,24 +385,26 @@ Now for the fun part - let's verify that push notifications from Firebase are wo
 We need to fire up our application on Android or iOS so that our `home.page.ts` page can register and receive notifications.
 
 To open your Android project in Android Studio:
+
 ```bash
 npx cap open android
 ```
 
 To open your iOS project in Xcode:
+
 ```bash
 npx cap open ios
 ```
 
 Once the project is open, side-load the application on your device using the Run feature of either Android Studio or Xcode. The app should start up on the home page.
 
-*Note: On iOS, you will see a popup asking you to allow notifications for your app - make sure you choose to **Allow notifications**!*
+_Note: On iOS, you will see a popup asking you to allow notifications for your app - make sure you choose to **Allow notifications**!_
 
 If your app successfully registers and you followed the code above, you should see an alert with a success message!
 
-Now we'll test to see if the notifications are received by our device. To send a notification, in Firebase, go to the **Cloud Messaging** section under the Grow header in the project pane. 
+Now we'll test to see if the notifications are received by our device. To send a notification, in Firebase, go to the **Cloud Messaging** section under the Grow header in the project pane.
 
-Next, select the **New Notification** button. 
+Next, select the **New Notification** button.
 
 When creating the notification, you only need to specify the following information:
 

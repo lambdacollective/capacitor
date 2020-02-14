@@ -20,14 +20,14 @@ The Share API works on iOS, Android, and the Web (using the new [Web Share API](
 ## Example
 
 ```typescript
-import { Plugins } from '@capacitor/core';
+import { Plugins } from "@lambda-capacitor/core";
 const { Share } = Plugins;
 
 let shareRet = await Share.share({
-  title: 'See cool stuff',
-  text: 'Really awesome thing you need to see right meow',
-  url: 'http://ionicframework.com/',
-  dialogTitle: 'Share with buddies'
+  title: "See cool stuff",
+  text: "Really awesome thing you need to see right meow",
+  url: "http://ionicframework.com/",
+  dialogTitle: "Share with buddies"
 });
 ```
 

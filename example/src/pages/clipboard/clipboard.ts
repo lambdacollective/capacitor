@@ -1,8 +1,6 @@
-import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams } from 'ionic-angular';
-import {
-  Plugins
-} from '@capacitor/core';
+import { Component } from "@angular/core";
+import { IonicPage, NavController, NavParams } from "ionic-angular";
+import { Plugins } from "@lambda-capacitor/core";
 
 /**
  * Generated class for the ClipboardPage page.
@@ -13,8 +11,8 @@ import {
 
 @IonicPage()
 @Component({
-  selector: 'page-clipboard',
-  templateUrl: 'clipboard.html',
+  selector: "page-clipboard",
+  templateUrl: "clipboard.html"
 })
 export class ClipboardPage {
   base64Image: string;
@@ -23,24 +21,31 @@ export class ClipboardPage {
     this.loadImage();
   }
   async loadImage() {
-    const toDataURL = url => fetch(url)
-    .then(response => response.blob())
-    .then(blob => new Promise((resolve, reject) => {
-      const reader = new FileReader()
-      reader.onloadend = () => {
-        if (typeof reader.result === 'string' || reader.result instanceof String) {
-          this.base64Image = reader.result.replace('data:;base64,', '');
-        }
-      }
-      reader.onerror = reject
-      reader.readAsDataURL(blob)
-    }))
+    const toDataURL = url =>
+      fetch(url)
+        .then(response => response.blob())
+        .then(
+          blob =>
+            new Promise((resolve, reject) => {
+              const reader = new FileReader();
+              reader.onloadend = () => {
+                if (
+                  typeof reader.result === "string" ||
+                  reader.result instanceof String
+                ) {
+                  this.base64Image = reader.result.replace("data:;base64,", "");
+                }
+              };
+              reader.onerror = reject;
+              reader.readAsDataURL(blob);
+            })
+        );
 
-    toDataURL('assets/ionitron.png');
+    toDataURL("assets/ionitron.png");
   }
 
   ionViewDidLoad() {
-    console.log('ionViewDidLoad ClipboardPage');
+    console.log("ionViewDidLoad ClipboardPage");
   }
 
   clipboardSetString() {
@@ -53,7 +58,7 @@ export class ClipboardPage {
     let str = await Plugins.Clipboard.read({
       type: "string"
     });
-    console.log('Got string from clipboard:', str.value);
+    console.log("Got string from clipboard:", str.value);
   }
 
   clipboardSetEmptyString() {
@@ -66,7 +71,7 @@ export class ClipboardPage {
     let str = await Plugins.Clipboard.read({
       type: "string"
     });
-    console.log('Got string from clipboard:', str.value);
+    console.log("Got string from clipboard:", str.value);
   }
 
   clipboardSetURL() {
@@ -82,8 +87,8 @@ export class ClipboardPage {
     console.log("Get URL from clipboard", url.value);
   }
 
-  clipboardSetImage () {
-    console.log('Setting image', this.base64Image);
+  clipboardSetImage() {
+    console.log("Setting image", this.base64Image);
     Plugins.Clipboard.write({
       image: this.base64Image
     });
@@ -93,6 +98,6 @@ export class ClipboardPage {
     const image = await Plugins.Clipboard.read({
       type: "image"
     });
-    console.log('Got image', image.value);
+    console.log("Got image", image.value);
   }
 }

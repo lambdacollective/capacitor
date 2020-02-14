@@ -18,7 +18,7 @@ The Network API provides events for monitoring network status changes, along wit
 ## Example
 
 ```typescript
-import { Plugins } from '@capacitor/core';
+import { Plugins } from '@lambda-capacitor/core';
 
 const { Network } = Plugins;
 

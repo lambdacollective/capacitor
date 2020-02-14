@@ -7,12 +7,11 @@ contributors:
   - jcesarmobile
 ---
 
-
 <plugin-platforms platforms="pwa,ios,android,electron"></plugin-platforms>
 
 # Clipboard
 
-The Clipboard API enables copy and pasting to/from the clipboard. On iOS this API also allows 
+The Clipboard API enables copy and pasting to/from the clipboard. On iOS this API also allows
 copying images and URLs.
 
 <plugin-api index="true" name="clipboard"></plugin-api>
@@ -20,7 +19,7 @@ copying images and URLs.
 ## Example
 
 ```typescript
-import { Plugins } from '@capacitor/core';
+import { Plugins } from "@lambda-capacitor/core";
 
 const { Clipboard } = Plugins;
 
@@ -31,7 +30,7 @@ Clipboard.write({
 let str = await Clipboard.read({
   type: "string"
 });
-console.log('Got string from clipboard:', str.value);
+console.log("Got string from clipboard:", str.value);
 ```
 
 ## API

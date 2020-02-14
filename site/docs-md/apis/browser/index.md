@@ -1,7 +1,7 @@
 ---
 title: Browser
 description: Browser API
-url: /docs/apis/browser 
+url: /docs/apis/browser
 contributors:
   - mlynch
   - jcesarmobile
@@ -19,11 +19,11 @@ handle authentication flows, and more.
 On iOS this uses `SFSafariViewController` and is compliant with leading oAuth service in-app-browser requirements.
 
 ```typescript
-import { Plugins } from '@capacitor/core';
+import { Plugins } from "@lambda-capacitor/core";
 
 const { Browser } = Plugins;
 
-await Browser.open({ url: 'http://capacitor.ionicframework.com/' });
+await Browser.open({ url: "http://capacitor.ionicframework.com/" });
 ```
 
 ## API

@@ -19,16 +19,15 @@ To build a custom JavaScript frontend for Capacitor, first follow the [Getting S
 
 Next, build out your plugin any way you see fit! The generated plugin template comes with TypeScript and a simple build process ready to go. You can adopt that (recommended) or remove those files and start fresh.
 
-To call your plugin, you'll be able to access it directly after importing from `@capacitor/core`:
+To call your plugin, you'll be able to access it directly after importing from `@lambda-capacitor/core`:
 
 ```typescript
-import { Plugins } from '@capacitor/core';
+import { Plugins } from "@lambda-capacitor/core";
 
 const { SuperGreatPlugin } = Plugins;
 
 export class CustomSuperPlugin {
-  constructor() {
-  }
+  constructor() {}
   customAwesomeness() {
     SuperGreatPlugin.awesome();
   }
@@ -44,7 +43,7 @@ To publish your plugin, just `npm publish` it!
 One of the differences with custom JS plugins is how developers "consume" it. Instead of accessing `Plugins.SuperGreatPlugin` directly, developers will instead import from your npm package directly:
 
 ```typescript
-import { CustomSuperPlugin } from 'super-great-plugin';
+import { CustomSuperPlugin } from "super-great-plugin";
 
 const plugin = new CustomSuperPlugin();
 plugin.customAwesomeness();

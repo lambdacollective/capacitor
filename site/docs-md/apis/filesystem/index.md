@@ -25,7 +25,7 @@ leave out the `directory` param to use a full file path.
 ## Example
 
 ```typescript
-import { Plugins, FilesystemDirectory, FilesystemEncoding } from '@capacitor/core';
+import { Plugins, FilesystemDirectory, FilesystemEncoding } from '@lambda-capacitor/core';
 
 const { Filesystem } = Plugins;
 

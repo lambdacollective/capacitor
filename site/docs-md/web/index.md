@@ -22,14 +22,14 @@ Generally, apps will be using a framework with a build system that supports impo
 simply import Capacitor at the top of your app and you're set:
 
 ```typescript
-import { Capacitor } from '@capacitor/core';
+import { Capacitor } from "@lambda-capacitor/core";
 ```
 
 To use a plugin, import `Plugins` and call it, noting that only plugins
 with web support will actually provide useful functionality:
 
 ```typescript
-import { Plugins } from '@capacitor/core';
+import { Plugins } from "@lambda-capacitor/core";
 
 const position = await Plugins.Geolocation.getCurrentPosition();
 ```

@@ -1,8 +1,6 @@
-import { Component, NgZone } from '@angular/core';
-import { IonicPage, NavController, NavParams } from 'ionic-angular';
-import {
-  Plugins
-} from '@capacitor/core';
+import { Component, NgZone } from "@angular/core";
+import { IonicPage, NavController, NavParams } from "ionic-angular";
+import { Plugins } from "@lambda-capacitor/core";
 
 /**
  * Generated class for the MotionPage page.
@@ -13,28 +11,31 @@ import {
 
 @IonicPage()
 @Component({
-  selector: 'page-motion',
-  templateUrl: 'motion.html',
+  selector: "page-motion",
+  templateUrl: "motion.html"
 })
 export class MotionPage {
-  accel = null
-  ori = null
+  accel = null;
+  ori = null;
 
-  constructor(public navCtrl: NavController, public navParams: NavParams, private zone: NgZone) {
-  }
+  constructor(
+    public navCtrl: NavController,
+    public navParams: NavParams,
+    private zone: NgZone
+  ) {}
 
   ionViewDidLoad() {
-    console.log('ionViewDidLoad MotionPage');
+    console.log("ionViewDidLoad MotionPage");
   }
 
   watchAccel() {
-    const watchListener = Plugins.Motion.addListener('accel', (values) => {
+    const watchListener = Plugins.Motion.addListener("accel", values => {
       this.zone.run(() => {
         const v = {
           x: values.acceleration.x.toFixed(4),
           y: values.acceleration.y.toFixed(4),
           z: values.acceleration.z.toFixed(4)
-        }
+        };
         this.accel = v;
       });
     });
@@ -45,13 +46,13 @@ export class MotionPage {
   }
 
   watchOrientation() {
-    const watchListener = Plugins.Motion.addListener('orientation', (values) => {
+    const watchListener = Plugins.Motion.addListener("orientation", values => {
       this.zone.run(() => {
         const v = {
           alpha: values.alpha.toFixed(4),
           beta: values.beta.toFixed(4),
           gamma: values.gamma.toFixed(4)
-        }
+        };
         this.ori = v;
       });
     });
@@ -59,5 +60,4 @@ export class MotionPage {
       watchListener.remove();
     }, 5000);
   }
-
 }

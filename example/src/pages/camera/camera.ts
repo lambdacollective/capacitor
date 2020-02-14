@@ -1,12 +1,12 @@
-import { Component, NgZone } from '@angular/core';
-import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
-import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import { Component, NgZone } from "@angular/core";
+import { DomSanitizer, SafeResourceUrl } from "@angular/platform-browser";
+import { IonicPage, NavController, NavParams } from "ionic-angular";
 import {
   Plugins,
   CameraResultType,
   CameraSource,
   FilesystemDirectory
-} from '@capacitor/core';
+} from "@lambda-capacitor/core";
 
 const { Filesystem } = Plugins;
 
@@ -19,30 +19,39 @@ const { Filesystem } = Plugins;
 
 @IonicPage()
 @Component({
-  selector: 'page-camera',
-  templateUrl: 'camera.html',
+  selector: "page-camera",
+  templateUrl: "camera.html"
 })
 export class CameraPage {
   image: SafeResourceUrl;
 
-  constructor(public navCtrl: NavController,
-              public navParams: NavParams,
-              private zone: NgZone,
-              private sanitizer: DomSanitizer) {
-  }
+  constructor(
+    public navCtrl: NavController,
+    public navParams: NavParams,
+    private zone: NgZone,
+    private sanitizer: DomSanitizer
+  ) {}
 
   ionViewDidLoad() {
-    console.log('ionViewDidLoad CameraPage');
+    console.log("ionViewDidLoad CameraPage");
   }
 
   async getPhoto() {
     const image = await Plugins.Camera.getPhoto({
       quality: 90,
       allowEditing: true,
-      resultType: CameraResultType.DataUrl,
-    })
-    console.log('Got image back', image.path, image.webPath, image.format, image.exif);
-    this.image = this.sanitizer.bypassSecurityTrustResourceUrl(image && (image.dataUrl));
+      resultType: CameraResultType.DataUrl
+    });
+    console.log(
+      "Got image back",
+      image.path,
+      image.webPath,
+      image.format,
+      image.exif
+    );
+    this.image = this.sanitizer.bypassSecurityTrustResourceUrl(
+      image && image.dataUrl
+    );
   }
 
   async takePicture() {
@@ -51,9 +60,17 @@ export class CameraPage {
       allowEditing: true,
       resultType: CameraResultType.DataUrl,
       source: CameraSource.Camera
-    })
-    console.log('Got image back', image.path, image.webPath, image.format, image.exif);
-    this.image = this.sanitizer.bypassSecurityTrustResourceUrl(image && (image.dataUrl));
+    });
+    console.log(
+      "Got image back",
+      image.path,
+      image.webPath,
+      image.format,
+      image.exif
+    );
+    this.image = this.sanitizer.bypassSecurityTrustResourceUrl(
+      image && image.dataUrl
+    );
   }
 
   async getFromPhotos() {
@@ -62,9 +79,17 @@ export class CameraPage {
       allowEditing: true,
       resultType: CameraResultType.DataUrl,
       source: CameraSource.Photos
-    })
-    console.log('Got image back', image.path, image.webPath, image.format, image.exif);
-    this.image = this.sanitizer.bypassSecurityTrustResourceUrl(image && (image.dataUrl));
+    });
+    console.log(
+      "Got image back",
+      image.path,
+      image.webPath,
+      image.format,
+      image.exif
+    );
+    this.image = this.sanitizer.bypassSecurityTrustResourceUrl(
+      image && image.dataUrl
+    );
   }
 
   async takePictureScaled() {
@@ -73,9 +98,17 @@ export class CameraPage {
       allowEditing: true,
       resultType: CameraResultType.DataUrl,
       width: 128
-    })
-    console.log('Got image back', image.path, image.webPath, image.format, image.exif);
-    this.image = this.sanitizer.bypassSecurityTrustResourceUrl(image && (image.dataUrl));
+    });
+    console.log(
+      "Got image back",
+      image.path,
+      image.webPath,
+      image.format,
+      image.exif
+    );
+    this.image = this.sanitizer.bypassSecurityTrustResourceUrl(
+      image && image.dataUrl
+    );
   }
 
   async takePictureCorrected() {
@@ -85,9 +118,17 @@ export class CameraPage {
       resultType: CameraResultType.DataUrl,
       width: 128,
       correctOrientation: true
-    })
-    console.log('Got image back', image.path, image.webPath, image.format, image.exif);
-    this.image = this.sanitizer.bypassSecurityTrustResourceUrl(image && (image.dataUrl));
+    });
+    console.log(
+      "Got image back",
+      image.path,
+      image.webPath,
+      image.format,
+      image.exif
+    );
+    this.image = this.sanitizer.bypassSecurityTrustResourceUrl(
+      image && image.dataUrl
+    );
   }
 
   async takePictureFile() {
@@ -95,22 +136,27 @@ export class CameraPage {
       quality: 90,
       allowEditing: true,
       resultType: CameraResultType.Uri
-    })
-    console.log('Got image back', image.path, image.webPath, image.format, image.exif);
-
+    });
+    console.log(
+      "Got image back",
+      image.path,
+      image.webPath,
+      image.format,
+      image.exif
+    );
 
     const imageData = await Filesystem.readFile({
       path: image.path
     });
 
     await Filesystem.writeFile({
-      path: 'cool-photo.jpg',
+      path: "cool-photo.jpg",
       directory: FilesystemDirectory.Data,
       data: imageData.data
     });
 
     let stat = await Plugins.Filesystem.stat({
-      path: 'cool-photo.jpg',
+      path: "cool-photo.jpg",
       directory: FilesystemDirectory.Data
     });
 
@@ -135,8 +181,16 @@ export class CameraPage {
       resultType: CameraResultType.DataUrl,
       saveToGallery: false
     });
-    console.log('Got image back', image.path, image.webPath, image.format, image.exif);
-    this.image = this.sanitizer.bypassSecurityTrustResourceUrl(image && (image.dataUrl));
+    console.log(
+      "Got image back",
+      image.path,
+      image.webPath,
+      image.format,
+      image.exif
+    );
+    this.image = this.sanitizer.bypassSecurityTrustResourceUrl(
+      image && image.dataUrl
+    );
   }
 
   async testAndroidBreak() {
@@ -147,10 +201,18 @@ export class CameraPage {
       width: 1080,
       quality: 90,
       resultType: CameraResultType.DataUrl,
-      saveToGallery: false, 
+      saveToGallery: false,
       source: CameraSource.Photos
     });
-    console.log('Got image back', image.path, image.webPath, image.format, image.exif);
-    this.image = this.sanitizer.bypassSecurityTrustResourceUrl(image && (image.dataUrl));
+    console.log(
+      "Got image back",
+      image.path,
+      image.webPath,
+      image.format,
+      image.exif
+    );
+    this.image = this.sanitizer.bypassSecurityTrustResourceUrl(
+      image && image.dataUrl
+    );
   }
 }

@@ -1,10 +1,10 @@
-import { NgModule, ErrorHandler, Injectable, Injector } from '@angular/core';
-import { HttpModule } from '@angular/http';
-import { BrowserModule } from '@angular/platform-browser';
-import { IonicApp, IonicModule, IonicErrorHandler } from 'ionic-angular';
-import { MyApp } from './app.component';
+import { NgModule, ErrorHandler, Injectable, Injector } from "@angular/core";
+import { HttpModule } from "@angular/http";
+import { BrowserModule } from "@angular/platform-browser";
+import { IonicApp, IonicModule, IonicErrorHandler } from "ionic-angular";
+import { MyApp } from "./app.component";
 
-import { Capacitor } from '@capacitor/core';
+import { Capacitor } from "@lambda-capacitor/core";
 
 @Injectable()
 export class MyErrorHandler implements ErrorHandler {
@@ -13,8 +13,8 @@ export class MyErrorHandler implements ErrorHandler {
   constructor(injector: Injector) {
     try {
       this.ionicErrorHandler = injector.get(IonicErrorHandler);
-    } catch(e) {
-      // Unable to get the IonicErrorHandler provider, ensure 
+    } catch (e) {
+      // Unable to get the IonicErrorHandler provider, ensure
       // IonicErrorHandler has been added to the providers list below
     }
   }
@@ -28,9 +28,7 @@ export class MyErrorHandler implements ErrorHandler {
 }
 
 @NgModule({
-  declarations: [
-    MyApp,
-  ],
+  declarations: [MyApp],
   imports: [
     BrowserModule,
     HttpModule,
@@ -39,11 +37,7 @@ export class MyErrorHandler implements ErrorHandler {
     })
   ],
   bootstrap: [IonicApp],
-  entryComponents: [
-    MyApp
-  ],
-  providers: [
-    {provide: ErrorHandler, useClass: MyErrorHandler}
-  ]
+  entryComponents: [MyApp],
+  providers: [{ provide: ErrorHandler, useClass: MyErrorHandler }]
 })
 export class AppModule {}

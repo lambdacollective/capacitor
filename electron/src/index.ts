@@ -3,9 +3,9 @@ export {
   PluginResultData,
   PluginResultError,
   PluginConfig
-} from '@capacitor/core';
+} from "@lambda-capacitor/core";
 
-export * from '@capacitor/core/dist/esm/core-plugin-definitions';
-export * from './global';
-export * from './plugins';
-export * from '@capacitor/core/dist/esm/web/index';
+export * from "@lambda-capacitor/core/dist/esm/core-plugin-definitions";
+export * from "./global";
+export * from "./plugins";
+export * from "@lambda-capacitor/core/dist/esm/web/index";

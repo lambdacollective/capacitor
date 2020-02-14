@@ -19,7 +19,7 @@ The Splash Screen API provides methods for showing or hiding a Splash image.
 ## Example
 
 ```typescript
-import { Plugins } from '@capacitor/core';
+import { Plugins } from "@lambda-capacitor/core";
 const { SplashScreen } = Plugins;
 
 // Hide the splash (you should do this on app launch)
@@ -93,6 +93,7 @@ If you want to show a spinner on top of the splash screen, set `showSpinner` to 
 You can customize the appearance of the spinner with the following configuration.
 
 For Android, `androidSpinnerStyle` has the following options:
+
 - horizontal
 - small
 - large (default)
@@ -101,6 +102,7 @@ For Android, `androidSpinnerStyle` has the following options:
 - largeInverse
 
 For iOS, `iosSpinnerStyle` has the following options:
+
 - large (default)
 - small
 

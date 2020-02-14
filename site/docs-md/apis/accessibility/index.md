@@ -19,7 +19,7 @@ labels through the connected screen reader.
 ## Example
 
 ```typescript
-import { Plugins } from '@capacitor/core';
+import { Plugins } from '@lambda-capacitor/core';
 
 const { Accessibility, Modals } = Plugins;
 

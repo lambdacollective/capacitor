@@ -23,7 +23,7 @@ The basic structure of a Web plugin looks like this, follow the comments inline 
 more explanation:
 
 ```typescript
-import { WebPlugin } from '@capacitor/core';
+import { WebPlugin } from "@lambda-capacitor/core";
 
 export class MyPluginWeb extends WebPlugin {
   constructor() {
@@ -31,13 +31,13 @@ export class MyPluginWeb extends WebPlugin {
     // along with the platforms this plugin will activate on. For example, it's possible
     // to use a web plugin for Android and iOS by adding them to the platforms list (lowercased)
     super({
-      name: 'MyPlugin',
-      platforms: ['web']
+      name: "MyPlugin",
+      platforms: ["web"]
     });
   }
 
   async echo(options: { value: string }) {
-    console.log('ECHO', options);
+    console.log("ECHO", options);
     return options;
   }
 }
@@ -52,5 +52,5 @@ export { MyPlugin };
 Finally, make sure your `src/index.ts` has this line:
 
 ```typescript
-export * from './web';
+export * from "./web";
 ```
