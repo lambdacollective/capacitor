@@ -20,18 +20,21 @@ class BionicViewController: CAPBridgeViewController {
     lazy var refreshButon = self.createRefreshButton()
     
     var currentOffset = CGPoint.zero
-    
-    let initialUrlString = "www.twitter.com"
-//    let initialUrlString = "Juns-MacBook-Pro.local:3000"
+    var topBarEnabled: Bool {
+        return bridge?.config.getValue("topBarEnabled") as? Bool == true
+    }
+
     override func viewDidLoad() {
         super.viewDidLoad()
         layout()
-        load(with: initialUrlString)
-        
+        load(with: nil)
         getWebView().scrollView.delegate = self
         getWebView().allowsBackForwardNavigationGestures = true
         getWebView().addObserver(self, forKeyPath: #keyPath(WKWebView.url), options: .new, context: nil)
         getWebView().addObserver(self, forKeyPath: #keyPath(WKWebView.estimatedProgress), options: .new, context: nil)
+        if (!topBarEnabled) {
+            hideTopView()
+        }
     }
     override func webView(_ webView: WKWebView, createWebViewWith configuration: WKWebViewConfiguration, for navigationAction: WKNavigationAction, windowFeatures: WKWindowFeatures) -> WKWebView? {
         if navigationAction.targetFrame == nil {
@@ -58,8 +61,10 @@ class BionicViewController: CAPBridgeViewController {
     override func observeValue(forKeyPath keyPath: String?, of object: Any?, change: [NSKeyValueChangeKey : Any]?, context: UnsafeMutableRawPointer?) {
         guard let keyPath = keyPath else { return }
         print(keyPath)
-        backArrow.alpha = getWebView().canGoBack ? 1 : 0.5
-        forwardArrow.alpha = getWebView().canGoForward ? 1: 0.5
+        if (topBarEnabled) {
+            backArrow.alpha = getWebView().canGoBack ? 1 : 0.5
+            forwardArrow.alpha = getWebView().canGoForward ? 1: 0.5
+        }
         if keyPath == "estimatedProgress" {
             print(getWebView().estimatedProgress)
             if getWebView().estimatedProgress == 1 {
@@ -73,6 +78,33 @@ class BionicViewController: CAPBridgeViewController {
             }
         }
         
+    }
+    override var canBecomeFirstResponder: Bool {
+        get {
+            return true
+        }
+    }
+    
+    // Enable detection of shake motion
+    override func motionEnded(_ motion: UIEvent.EventSubtype, with event: UIEvent?) {
+        if motion == .motionShake {
+            let alert = UIAlertController(title: "Change Site", message: "Where do you want to go?", preferredStyle: .alert)
+            alert.addTextField() { newTextField in
+                newTextField.placeholder = "www.google.com"
+            }
+            alert.addAction(UIAlertAction(title: "Cancel", style: .cancel) { _ in  })
+            alert.addAction(UIAlertAction(title: "Ok", style: .default) { action in
+                if
+                    let textFields = alert.textFields,
+                    let tf = textFields.first,
+                    let result = tf.text
+                {
+                    
+                    self.load(with: result)
+                }
+            })
+            self.present(alert, animated: true)
+        }
     }
     func hideTopView() {
         //        topView.snp.updateConstraints { (make) in
@@ -106,13 +138,19 @@ class BionicViewController: CAPBridgeViewController {
             self.view.layoutIfNeeded()
         })
     }
-    func load(with urlString: String) {
-        let fullUrlString = "http://\(urlString)"
-        loadWebView(urlString: fullUrlString)
-//        let myURL = URL(string: "https://\(urlString)")
-//        let myRequest = URLRequest(url: myURL!)
-//        self.getWebView().load(myRequest)
-                loadingView.show()
+    func load(with urlString: String?) {
+        let finalUrlString: String
+        let serverUrl = self.bridge?.config.getString("server.url")
+        let backupUrl = "https://www.twitter.com"
+        if let urlString = urlString {
+            finalUrlString = "http://\(urlString)"
+        } else if let serverUrl = serverUrl {
+            finalUrlString = serverUrl
+        } else {
+            finalUrlString = backupUrl
+        }
+        loadWebView(urlString: finalUrlString)
+        loadingView.show()
     }
     func backPressed() {
         getWebView().goBack()
@@ -283,7 +321,9 @@ extension BionicViewController: UIScrollViewDelegate {
         //        } else {
         //            showTopView()
         //        }
-//        return
+        if (!topBarEnabled) {
+            return
+        }
         if newOffset.y <= 0 {
             showTopView()
         } else {

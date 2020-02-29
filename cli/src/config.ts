@@ -1,110 +1,113 @@
-import { accessSync, readFileSync } from 'fs';
-import { basename, join, resolve } from 'path';
-import { logFatal, readJSON } from './common';
-import { CliConfig, ExternalConfig, OS, PackageJson } from './definitions';
+import { accessSync, readFileSync } from "fs";
+import { basename, join, resolve } from "path";
+import { logFatal, readJSON } from "./common";
+import { CliConfig, ExternalConfig, OS, PackageJson } from "./definitions";
 
 let Package: PackageJson;
 let ExtConfig: ExternalConfig;
 
 export class Config implements CliConfig {
   windows = {
-    androidStudioPath: 'C:\\Program Files\\Android\\Android Studio\\bin\\studio64.exe'
+    androidStudioPath:
+      "C:\\Program Files\\Android\\Android Studio\\bin\\studio64.exe"
   };
 
   linux = {
-    androidStudioPath: '/usr/local/android-studio/bin/studio.sh'
+    androidStudioPath: "/usr/local/android-studio/bin/studio.sh"
   };
 
   electron = {
-    name: 'electron',
-    platformDir: '',
-    webDir: 'app',
-    webDirAbs: '',
+    name: "electron",
+    platformDir: "",
+    webDir: "app",
+    webDirAbs: "",
     assets: {
-      templateName: 'electron-template',
-      templateDir: ''
+      templateName: "electron-template",
+      templateDir: ""
     }
   };
 
   android = {
-    name: 'android',
-    minVersion: '21',
-    platformDir: '',
-    webDir: 'app/src/main/assets/public',
-    webDirAbs: '',
-    resDir: 'app/src/main/res',
-    resDirAbs: '',
+    name: "android",
+    minVersion: "21",
+    platformDir: "",
+    webDir: "app/src/main/assets/public",
+    webDirAbs: "",
+    resDir: "app/src/main/res",
+    resDirAbs: "",
     assets: {
-      templateName: 'android-template',
-      pluginsFolderName: 'capacitor-cordova-android-plugins',
-      templateDir: '',
-      pluginsDir: '',
+      templateName: "android-template",
+      pluginsFolderName: "capacitor-cordova-android-plugins",
+      templateDir: "",
+      pluginsDir: ""
     }
   };
 
   ios = {
-    name: 'ios',
-    minVersion: '11.0',
-    cordovaSwiftVersion: '4.0',
-    platformDir: '',
-    webDir: 'public',
-    webDirAbs: '',
-    nativeProjectName: 'App',
+    name: "ios",
+    minVersion: "11.0",
+    cordovaSwiftVersion: "4.0",
+    platformDir: "",
+    webDir: "public",
+    webDirAbs: "",
+    nativeProjectName: "App",
     assets: {
-      templateName: 'ios-template',
-      pluginsFolderName: 'capacitor-cordova-ios-plugins',
-      templateDir: '',
-      pluginsDir: '',
+      templateName: "ios-template",
+      pluginsFolderName: "capacitor-cordova-ios-plugins",
+      templateDir: "",
+      pluginsDir: ""
     }
   };
 
   web = {
-    name: 'web'
+    name: "web"
   };
 
   cli = {
-    binDir: '',
-    rootDir: '',
-    assetsName: 'assets',
-    assetsDir: '',
+    binDir: "",
+    rootDir: "",
+    assetsName: "assets",
+    assetsDir: "",
     package: Package,
     os: OS.Unknown,
-    npmClient: ''
+    npmClient: ""
   };
 
   app = {
-    rootDir: '',
-    appId: '',
-    appName: '',
-    webDir: 'www',
-    webDirAbs: '',
+    rootDir: "",
+    appId: "",
+    appName: "",
+    webDir: "www",
+    webDirAbs: "",
     package: Package,
-    windowsAndroidStudioPath: 'C:\\Program Files\\Android\\Android Studio\\bin\\studio64.exe',
-    linuxAndroidStudioPath: '',
-    extConfigName: 'capacitor.config.json',
-    extConfigFilePath: '',
+    windowsAndroidStudioPath:
+      "C:\\Program Files\\Android\\Android Studio\\bin\\studio64.exe",
+    linuxAndroidStudioPath: "",
+    extConfigName: "capacitor.config.json",
+    extConfigFilePath: "",
     extConfig: ExtConfig,
     bundledWebRuntime: false,
     plugins: {},
     assets: {
-      templateName: 'app-template',
-      templateDir: '',
-      pluginsTemplateDir: ''
+      templateName: "app-template",
+      templateDir: "",
+      pluginsTemplateDir: ""
     },
     server: {
-      cleartext: false
-    }
+      cleartext: false,
+      url: ""
+    },
+    topBarEnabled: false
   };
 
   plugins = {
     assets: {
-      templateName: 'plugin-template',
-      templateDir: ''
+      templateName: "plugin-template",
+      templateDir: ""
     }
   };
 
   platforms: string[] = [];
-
 
   constructor(os: string, currentWorkingDir: string, cliBinDir: string) {
     this.initOS(os);
@@ -114,13 +117,13 @@ export class Config implements CliConfig {
 
   initOS(os: string) {
     switch (os) {
-      case 'darwin':
+      case "darwin":
         this.cli.os = OS.Mac;
         break;
-      case 'win32':
+      case "win32":
         this.cli.os = OS.Windows;
         break;
-      case 'linux':
+      case "linux":
         this.cli.os = OS.Linux;
         break;
     }
@@ -148,56 +151,95 @@ export class Config implements CliConfig {
 
   private initCliConfig(cliBinDir: string) {
     this.cli.binDir = cliBinDir;
-    this.cli.rootDir = join(cliBinDir, '../');
+    this.cli.rootDir = join(cliBinDir, "../");
     this.cli.assetsDir = join(this.cli.rootDir, this.cli.assetsName);
     this.cli.package = loadPackageJson(this.cli.rootDir);
   }
 
-
   private initAppConfig(currentWorkingDir: string) {
     this.app.rootDir = currentWorkingDir;
     this.app.package = loadPackageJson(currentWorkingDir);
-    this.app.assets.templateDir = join(this.cli.assetsDir, this.app.assets.templateName);
+    this.app.assets.templateDir = join(
+      this.cli.assetsDir,
+      this.app.assets.templateName
+    );
   }
 
   async updateAppPackage() {
-    this.app.package = await readJSON(resolve(this.app.rootDir, 'package.json'));
+    this.app.package = await readJSON(
+      resolve(this.app.rootDir, "package.json")
+    );
   }
 
   private initElectronConfig() {
     this.platforms.push(this.electron.name);
     this.electron.platformDir = resolve(this.app.rootDir, this.electron.name);
-    this.electron.assets.templateDir = resolve(this.cli.assetsDir, this.electron.assets.templateName);
-    this.electron.webDirAbs = resolve(this.electron.platformDir, this.electron.webDir);
+    this.electron.assets.templateDir = resolve(
+      this.cli.assetsDir,
+      this.electron.assets.templateName
+    );
+    this.electron.webDirAbs = resolve(
+      this.electron.platformDir,
+      this.electron.webDir
+    );
   }
 
   private initAndroidConfig() {
     this.platforms.push(this.android.name);
     this.android.platformDir = resolve(this.app.rootDir, this.android.name);
-    this.android.assets.templateDir = resolve(this.cli.assetsDir, this.android.assets.templateName);
-    this.android.assets.pluginsDir = resolve(this.cli.assetsDir, this.android.assets.pluginsFolderName);
-    this.android.webDirAbs = resolve(this.android.platformDir, this.android.webDir);
-    this.android.resDirAbs = resolve(this.android.platformDir, this.android.resDir);
+    this.android.assets.templateDir = resolve(
+      this.cli.assetsDir,
+      this.android.assets.templateName
+    );
+    this.android.assets.pluginsDir = resolve(
+      this.cli.assetsDir,
+      this.android.assets.pluginsFolderName
+    );
+    this.android.webDirAbs = resolve(
+      this.android.platformDir,
+      this.android.webDir
+    );
+    this.android.resDirAbs = resolve(
+      this.android.platformDir,
+      this.android.resDir
+    );
   }
-
 
   private initIosConfig() {
     this.platforms.push(this.ios.name);
     this.ios.platformDir = resolve(this.app.rootDir, this.ios.name);
-    this.ios.assets.templateDir = resolve(this.cli.assetsDir, this.ios.assets.templateName);
-    this.ios.assets.pluginsDir = resolve(this.cli.assetsDir, this.ios.assets.pluginsFolderName);
-    this.ios.webDirAbs = resolve(this.ios.platformDir, this.ios.nativeProjectName, this.ios.webDir);
-    if (this.app.extConfig && this.app.extConfig.ios && this.app.extConfig.ios.cordovaSwiftVersion) {
+    this.ios.assets.templateDir = resolve(
+      this.cli.assetsDir,
+      this.ios.assets.templateName
+    );
+    this.ios.assets.pluginsDir = resolve(
+      this.cli.assetsDir,
+      this.ios.assets.pluginsFolderName
+    );
+    this.ios.webDirAbs = resolve(
+      this.ios.platformDir,
+      this.ios.nativeProjectName,
+      this.ios.webDir
+    );
+    if (
+      this.app.extConfig &&
+      this.app.extConfig.ios &&
+      this.app.extConfig.ios.cordovaSwiftVersion
+    ) {
       this.ios.cordovaSwiftVersion = this.app.extConfig.ios.cordovaSwiftVersion;
     }
-    if (this.app.extConfig && this.app.extConfig.ios && this.app.extConfig.ios.minVersion) {
+    if (
+      this.app.extConfig &&
+      this.app.extConfig.ios &&
+      this.app.extConfig.ios.minVersion
+    ) {
       this.ios.minVersion = this.app.extConfig.ios.minVersion;
     }
   }
 
   private initWindowsConfig() {
     if (this.cli.os !== OS.Windows) {
-        return;
+      return;
     }
     this.windows.androidStudioPath = this.app.windowsAndroidStudioPath;
   }
@@ -209,7 +251,10 @@ export class Config implements CliConfig {
   }
 
   private initPluginsConfig() {
-    this.plugins.assets.templateDir = join(this.cli.assetsDir, this.plugins.assets.templateName);
+    this.plugins.assets.templateDir = join(
+      this.cli.assetsDir,
+      this.plugins.assets.templateName
+    );
   }
 
   private mergeConfigData() {
@@ -225,16 +270,15 @@ export class Config implements CliConfig {
     this.app.extConfigFilePath = join(this.app.rootDir, this.app.extConfigName);
 
     try {
-      const extConfigStr = readFileSync(this.app.extConfigFilePath, 'utf8');
+      const extConfigStr = readFileSync(this.app.extConfigFilePath, "utf8");
 
       try {
         // we've got an capacitor.json file, let's parse it
         this.app.extConfig = JSON.parse(extConfigStr);
-        this.cli.npmClient = this.app.extConfig.npmClient || '';
+        this.cli.npmClient = this.app.extConfig.npmClient || "";
       } catch (e) {
         logFatal(`error parsing: ${basename(this.app.extConfigFilePath)}\n`, e);
       }
-
     } catch {
       // it's ok if there's no capacitor.json file
     }
@@ -251,7 +295,6 @@ export class Config implements CliConfig {
 
       if (!this.isValidPlatform(platformName)) {
         logFatal(`Invalid platform: ${platformName}`);
-
       } else if (!this.platformDirExists(platformName)) {
         this.platformNotCreatedError(platformName);
       }
@@ -265,14 +308,16 @@ export class Config implements CliConfig {
     return this.getExistingPlatforms();
   }
 
-
-  async askPlatform(selectedPlatformName: string, promptMessage: string): Promise<string> {
+  async askPlatform(
+    selectedPlatformName: string,
+    promptMessage: string
+  ): Promise<string> {
     if (!selectedPlatformName) {
-      const inquirer = await import('inquirer');
+      const inquirer = await import("inquirer");
 
       const answer = await inquirer.prompt({
-        type: 'list',
-        name: 'mode',
+        type: "list",
+        name: "mode",
         message: promptMessage,
         choices: this.platforms
       });
@@ -283,12 +328,15 @@ export class Config implements CliConfig {
     const platformName = selectedPlatformName.toLowerCase().trim();
 
     if (!this.isValidPlatform(platformName)) {
-      logFatal(`Invalid platform: "${platformName}". Valid platforms include: ${this.platforms.join(', ')}`);
+      logFatal(
+        `Invalid platform: "${platformName}". Valid platforms include: ${this.platforms.join(
+          ", "
+        )}`
+      );
     }
 
     return platformName;
   }
-
 
   getExistingPlatforms() {
     const platforms: string[] = [];
@@ -315,7 +363,7 @@ export class Config implements CliConfig {
 
     try {
       let testDir = join(this.app.rootDir, platformName);
-      if (platformName === 'web') {
+      if (platformName === "web") {
         testDir = this.app.webDirAbs;
       }
       accessSync(testDir);
@@ -330,11 +378,19 @@ export class Config implements CliConfig {
   }
 
   platformNotCreatedError(platformName: string) {
-    const chalk = require('chalk');
-    if (platformName === 'web') {
-      logFatal(`Could not find the web platform directory. Make sure ${chalk.bold(this.app.webDir)} exists.`);
+    const chalk = require("chalk");
+    if (platformName === "web") {
+      logFatal(
+        `Could not find the web platform directory. Make sure ${chalk.bold(
+          this.app.webDir
+        )} exists.`
+      );
     }
-    logFatal(`${chalk.bold(platformName)}" platform has not been created. Use "npx cap add ${platformName}" to add the platform project.`);
+    logFatal(
+      `${chalk.bold(
+        platformName
+      )}" platform has not been created. Use "npx cap add ${platformName}" to add the platform project.`
+    );
   }
 }
 
@@ -342,7 +398,7 @@ function loadPackageJson(dir: string): PackageJson {
   let p: any = null;
 
   try {
-    p = require(join(dir, 'package.json'));
+    p = require(join(dir, "package.json"));
   } catch (e) {}
 
   return p;

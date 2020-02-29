@@ -20,8 +20,9 @@
 		3F5BE7E023F66C5E004933EA /* UIColor+Hex.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F5BE7D123F66C5D004933EA /* UIColor+Hex.swift */; };
 		3F5BE7E123F66C5E004933EA /* UIViewController+Attachment.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F5BE7D223F66C5D004933EA /* UIViewController+Attachment.swift */; };
 		3F5BE7E223F66C5E004933EA /* UIViewController+Alerts.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F5BE7D323F66C5D004933EA /* UIViewController+Alerts.swift */; };
-		3F5BE7E323F66C5E004933EA /* loading.json in Resources */ = {isa = PBXBuildFile; fileRef = 3F5BE7D623F66C5D004933EA /* loading.json */; };
 		3F5BE7E723F6743E004933EA /* BionicViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F5BE7E623F6743E004933EA /* BionicViewController.swift */; };
+		3F5BE7F823F8B01A004933EA /* darkmodeloading.json in Resources */ = {isa = PBXBuildFile; fileRef = 3F5BE7F623F8B01A004933EA /* darkmodeloading.json */; };
+		3F5BE7F923F8B01A004933EA /* lightmodeloading.json in Resources */ = {isa = PBXBuildFile; fileRef = 3F5BE7F723F8B01A004933EA /* lightmodeloading.json */; };
 		50379B232058CBB4000EE86E /* capacitor.config.json in Resources */ = {isa = PBXBuildFile; fileRef = 50379B222058CBB4000EE86E /* capacitor.config.json */; };
 		504EC3081FED79650016851F /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 504EC3071FED79650016851F /* AppDelegate.swift */; };
 		504EC30D1FED79650016851F /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 504EC30B1FED79650016851F /* Main.storyboard */; };
@@ -45,8 +46,9 @@
 		3F5BE7D223F66C5D004933EA /* UIViewController+Attachment.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIViewController+Attachment.swift"; sourceTree = "<group>"; };
 		3F5BE7D323F66C5D004933EA /* UIViewController+Alerts.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIViewController+Alerts.swift"; sourceTree = "<group>"; };
 		3F5BE7D423F66C5D004933EA /* bridging-header.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "bridging-header.h"; sourceTree = "<group>"; };
-		3F5BE7D623F66C5D004933EA /* loading.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = loading.json; sourceTree = "<group>"; };
 		3F5BE7E623F6743E004933EA /* BionicViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BionicViewController.swift; sourceTree = "<group>"; };
+		3F5BE7F623F8B01A004933EA /* darkmodeloading.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = darkmodeloading.json; sourceTree = "<group>"; };
+		3F5BE7F723F8B01A004933EA /* lightmodeloading.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = lightmodeloading.json; sourceTree = "<group>"; };
 		50379B222058CBB4000EE86E /* capacitor.config.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = capacitor.config.json; sourceTree = "<group>"; };
 		504EC3041FED79650016851F /* App.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = App.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		504EC3071FED79650016851F /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -108,7 +110,8 @@
 		3F5BE7D523F66C5D004933EA /* Resources */ = {
 			isa = PBXGroup;
 			children = (
-				3F5BE7D623F66C5D004933EA /* loading.json */,
+				3F5BE7F623F8B01A004933EA /* darkmodeloading.json */,
+				3F5BE7F723F8B01A004933EA /* lightmodeloading.json */,
 			);
 			path = Resources;
 			sourceTree = "<group>";
@@ -219,10 +222,11 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				3F5BE7F923F8B01A004933EA /* lightmodeloading.json in Resources */,
 				504EC3121FED79650016851F /* LaunchScreen.storyboard in Resources */,
 				504EC30F1FED79650016851F /* Assets.xcassets in Resources */,
 				50379B232058CBB4000EE86E /* capacitor.config.json in Resources */,
-				3F5BE7E323F66C5E004933EA /* loading.json in Resources */,
+				3F5BE7F823F8B01A004933EA /* darkmodeloading.json in Resources */,
 				504EC30D1FED79650016851F /* Main.storyboard in Resources */,
 				2FAD9763203C412B000D30F8 /* config.xml in Resources */,
 			);

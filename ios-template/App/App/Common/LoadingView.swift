@@ -16,8 +16,13 @@ enum LoadingViewStyle {
 }
 
 class LoadingView: UIView {
-    
-    let animationView = AnimationView(name: "loading")
+    lazy var animationView: AnimationView = {
+        if traitCollection.userInterfaceStyle == .dark {
+            return AnimationView(name: "darkmodeloading")
+        } else {
+            return AnimationView(name: "lightmodeloading")
+        }
+    }()
     let style: LoadingViewStyle
     let offset: CGPoint
     var isLoading: Bool {
@@ -46,8 +51,8 @@ class LoadingView: UIView {
         let height: CGFloat
         switch style {
         case .large:
-            width = 50
-            height = 25
+            width = 500
+            height = 250
         case .medium:
             width = 35
             height = 17.5
@@ -61,7 +66,6 @@ class LoadingView: UIView {
             make.width.equalTo(width)
             make.height.equalTo(height)
         }
-        animationView.alpha = 0.4
     }
     
     func show() {

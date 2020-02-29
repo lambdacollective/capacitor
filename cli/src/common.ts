@@ -211,7 +211,11 @@ export async function getOrCreateConfig(config: Config) {
     appName: config.app.appName,
     bundledWebRuntime: config.app.bundledWebRuntime,
     npmClient: config.cli.npmClient,
-    webDir: basename(resolve(config.app.rootDir, config.app.webDir))
+    webDir: basename(resolve(config.app.rootDir, config.app.webDir)),
+    server: {
+      url: config.app.server.url
+    },
+    topBarEnabled: config.app.topBarEnabled
   });
 
   // Store our newly created or found external config as the default
@@ -357,6 +361,20 @@ export async function getAppId(config: Config, id: string) {
   }
   return id;
 }
+export async function getServerUrl(config: Config, url: string) {
+  if (!url) {
+    const answers = await inquirer.prompt([
+      {
+        type: "input",
+        name: "url",
+        default: "https://www.twitter.com",
+        message: "Web URL (including http://)"
+      }
+    ]);
+    return answers.url;
+  }
+  return url;
+}
 
 export function getNpmClient(
   config: Config,
@@ -442,12 +460,12 @@ export async function checkPlatformVersions(config: Config, platform: string) {
 
   const platformPackagePath = resolveNode(
     config,
-    `@capacitor/${platform}`,
+    `@lambda-capacitor/${platform}`,
     "package.json"
   );
   if (!platformPackagePath) {
     logFatal(
-      `Unable to find node_modules/@capacitor/${platform}/package.json. Are you sure`,
+      `Unable to find node_modules/@lambda-capacitor/${platform}/package.json. Are you sure`,
       `@capacitor/${platform} is installed? This file is currently required for Capacitor to function.`
     );
     return;
