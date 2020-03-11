@@ -33,14 +33,18 @@ export async function doctorCommand(config: Config, selectedPlatform: string) {
 export async function doctorCore(config: Config) {
   let cliVersion = await runCommand(`npm info @lambda-capacitor/cli version`);
   let coreVersion = await runCommand(`npm info @lambda-capacitor/core version`);
-  let androidVersion = await runCommand(`npm info @capacitor/android version`);
-  let electronVersion = await runCommand(`npm info @capacitor/android version`);
+  let androidVersion = await runCommand(
+    `npm info @lambda-capacitor/android version`
+  );
+  let electronVersion = await runCommand(
+    `npm info @lambda-capacitor/android version`
+  );
   let iosVersion = await runCommand(`npm info @lambda-capacitor/ios version`);
 
   log(`${chalk.bold.blue("Latest Dependencies:")}\n`);
   log(`  ${chalk.bold("@lambda-capacitor/cli:")}`, cliVersion);
   log(`  ${chalk.bold("@lambda-capacitor/core:")}`, coreVersion);
-  log(`  ${chalk.bold("@capacitor/android:")}`, androidVersion);
+  log(`  ${chalk.bold("@lambda-capacitor/android:")}`, androidVersion);
   log(`  ${chalk.bold("@capacitor/electron:")}`, electronVersion);
   log(`  ${chalk.bold("@lambda-capacitor/ios:")}`, iosVersion);
 
@@ -55,7 +59,7 @@ async function printInstalledPackages(config: Config) {
   const packageNames = [
     "@lambda-capacitor/cli",
     "@lambda-capacitor/core",
-    "@capacitor/android",
+    "@lambda-capacitor/android",
     "@lambda-capacitor/ios"
   ];
   await Promise.all(

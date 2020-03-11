@@ -305,7 +305,7 @@ function generatePackageJSON(answers: NewPluginAnswers) {
       rimraf: "^3.0.0",
       typescript: "^3.2.4",
       "@lambda-capacitor/ios": "latest",
-      "@capacitor/android": "latest"
+      "@lambda-capacitor/android": "latest"
     },
     files: ["dist/", "ios/", "android/", `${fixName(answers.name)}.podspec`],
     keywords: ["capacitor", "plugin", "native"],

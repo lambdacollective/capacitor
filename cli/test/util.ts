@@ -93,7 +93,7 @@ export async function makeAppDir(monoRepoLike: boolean = false) {
   await writeFileAsync(join(appDir, "package.json"), APP_PACKAGE_JSON);
 
   // We use 'npm install' to install @lambda-capacitor/core and @lambda-capacitor/cli
-  // Otherwise later use of 'npm install --save @capacitor/android|ios' will wipe 'node_modules/@capacitor/'
+  // Otherwise later use of 'npm install --save @lambda-capacitor/android|ios' will wipe 'node_modules/@capacitor/'
   const corePath = resolve(cwd, "../core");
   const cliPath = resolve(cwd, "../cli");
   await runCommand(

@@ -73,6 +73,6 @@ To update any or all of the platforms you are using:
 
 ```bash
 npm update @lambda-capacitor/ios
-npm update @capacitor/android
+npm update @lambda-capacitor/android
 npm update @capacitor/electron
 ```
